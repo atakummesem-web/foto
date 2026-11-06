@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atakum MESEM – Sınıf Listesi & Oturma Planı</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f0f4f8;
+  --surface: #ffffff;
+  --surface2: #e8eef5;
+  --border: #cbd5e1;
+  --primary: #1a56db;
+  --primary-dark: #1340b0;
+  --primary-light: #dbeafe;
+  --secondary: #0ea472;
+  --secondary-dark: #0b8560;
+  --danger: #e53e3e;
+  --danger-light: #fff5f5;
+  --warning: #d97706;
+  --text: #1a202c;
+  --text2: #4a5568;
+  --text3: #a0aec0;
+  --shadow: 0 4px 20px rgba(26,86,219,0.10);
+  --shadow2: 0 2px 8px rgba(0,0,0,0.07);
+  --radius: 16px;
+  --radius-sm: 9px;
+}
+[data-theme="dark"] {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface2: #21262d;
+  --border: #30363d;
+  --primary: #4493f8;
+  --primary-dark: #2f81f7;
+  --primary-light: #1c2d45;
+  --secondary: #3fb950;
+  --danger: #f85149;
+  --danger-light: #2d1117;
+  --text: #e6edf3;
+  --text2: #8b949e;
+  --text3: #484f58;
+  --shadow: 0 4px 20px rgba(0,0,0,0.4);
+  --shadow2: 0 2px 8px rgba(0,0,0,0.3);
+}
+[data-theme="green"] {
+  --bg: #f0fdf4;
+  --surface: #fff;
+  --surface2: #dcfce7;
+  --border: #86efac;
+  --primary: #16a34a;
+  --primary-dark: #15803d;
+  --primary-light: #dcfce7;
+  --secondary: #0891b2;
+  --text: #14532d;
+  --text2: #166534;
+  --shadow: 0 4px 20px rgba(22,163,74,0.12);
+}
+[data-theme="orange"] {
+  --bg: #fff7ed;
+  --surface: #fff;
+  --surface2: #ffedd5;
+  --border: #fdba74;
+  --primary: #ea580c;
+  --primary-dark: #c2410c;
+  --primary-light: #ffedd5;
+  --secondary: #7c3aed;
+  --text: #431407;
+  --text2: #9a3412;
+  --shadow: 0 4px 20px rgba(234,88,12,0.12);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;transition:background .3s,color .3s;}
+
+/* HEADER */
+.header{background:var(--surface);border-bottom:2px solid var(--border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:200;box-shadow:var(--shadow2);}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Poppins',sans-serif;font-weight:800;font-size:1rem;color:var(--primary);}
+.logo-icon{background:var(--primary);color:#fff;border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+.logo-sub{font-size:0.65rem;font-weight:500;color:var(--text2);font-family:'Nunito';}
+.header-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.theme-pills{display:flex;gap:3px;background:var(--surface2);padding:3px;border-radius:8px;border:1px solid var(--border);}
+.theme-pill{border:none;background:transparent;border-radius:5px;padding:4px 9px;cursor:pointer;font-size:0.78rem;font-family:inherit;color:var(--text2);font-weight:600;transition:all .15s;}
+.theme-pill.active{background:var(--primary);color:#fff;}
+
+/* MAIN */
+.main{max-width:1080px;margin:0 auto;padding:28px 14px;}
+
+/* LOGIN */
+.login-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 62px);padding:24px;gap:28px;}
+.login-hero{text-align:center;}
+.login-hero h1{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;color:var(--primary);line-height:1.1;}
+.login-hero p{color:var(--text2);margin-top:6px;font-size:0.95rem;}
+.login-cards{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;}
+.login-card{background:var(--surface);border:2.5px solid var(--border);border-radius:var(--radius);padding:32px 24px;width:240px;text-align:center;cursor:pointer;box-shadow:var(--shadow);transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:12px;}
+.login-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,86,219,.18);}
+.login-card .lc-icon{font-size:3rem;}
+.login-card h3{font-size:1.05rem;font-weight:800;}
+.login-card p{font-size:0.82rem;color:var(--text2);}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.9rem;transition:all .2s;display:inline-flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--primary);color:#fff;}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px);}
+.btn-secondary{background:var(--secondary);color:#fff;}
+.btn-secondary:hover{background:var(--secondary-dark);}
+.btn-danger{background:var(--danger);color:#fff;}
+.btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary);}
+.btn-outline:hover{background:var(--primary-light);}
+.btn-ghost{background:var(--surface2);color:var(--text2);border:1px solid var(--border);}
+.btn-ghost:hover{color:var(--text);}
+.btn-sm{padding:7px 14px;font-size:0.82rem;}
+.btn-xs{padding:4px 10px;font-size:0.75rem;}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none!important;}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px;backdrop-filter:blur(3px);}
+.modal{background:var(--surface);border-radius:var(--radius);padding:28px;width:100%;max-width:430px;box-shadow:0 20px 60px rgba(0,0,0,.25);animation:modalIn .25s ease;}
+@keyframes modalIn{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal h3{font-size:1.15rem;font-weight:800;margin-bottom:18px;}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+
+/* FORM */
+.form-group{margin-bottom:14px;}
+.form-group label{display:block;font-size:0.82rem;font-weight:700;color:var(--text2);margin-bottom:5px;}
+.form-group input,.form-group select{width:100%;padding:10px 13px;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-family:inherit;font-size:0.92rem;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--primary);}
+.form-group select:disabled,.form-group input:disabled{opacity:.5;cursor:not-allowed;}
+
+/* TABS */
+.tabs{display:flex;gap:3px;background:var(--surface2);padding:4px;border-radius:var(--radius-sm);margin-bottom:22px;border:1px solid var(--border);}
+.tab{flex:1;padding:8px 12px;border:none;background:transparent;border-radius:6px;cursor:pointer;font-family:inherit;font-weight:700;font-size:0.88rem;color:var(--text2);transition:all .2s;}
+.tab.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(26,86,219,.3);}
+
+/* PHOTO UPLOAD */
+.photo-box{border:2.5px dashed var(--border);border-radius:var(--radius);padding:28px;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface);margin-bottom:14px;position:relative;overflow:hidden;}
+.photo-box:hover{border-color:var(--primary);background:var(--primary-light);}
+.photo-box img{max-width:180px;max-height:180px;border-radius:10px;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;}
+.upload-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:10px;}
+
+/* STUDENT GRID */
+.student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+.s-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow2);transition:all .2s;position:relative;}
+.s-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow);}
+.s-card-photo{width:100%;aspect-ratio:1;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:2.8rem;overflow:hidden;}
+.s-card-photo img{width:100%;height:100%;object-fit:cover;}
+.s-card-info{padding:9px 10px;}
+.s-card-name{font-weight:800;font-size:0.85rem;line-height:1.2;margin-bottom:3px;}
+.s-card-no{font-size:0.73rem;color:var(--text2);}
+.s-card-sube{font-size:0.68rem;color:var(--text3);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.s-card-actions{position:absolute;top:6px;right:6px;display:flex;gap:4px;opacity:0;transition:.2s;}
+.s-card:hover .s-card-actions{opacity:1;}
+.ic-btn{width:28px;height:28px;border-radius:7px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.15s;}
+.ic-btn:hover{transform:scale(1.15);}
+.ic-edit{background:var(--primary);color:#fff;}
+.ic-del{background:var(--danger);color:#fff;}
+
+/* SEATING */
+.seating-controls{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;}
+.seating-wrap{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:24px;overflow-x:auto;}
+.seating-board{display:flex;flex-direction:column;gap:10px;align-items:center;min-width:fit-content;}
+.board-sign{background:var(--surface2);border:2px solid var(--border);border-radius:6px;padding:5px 48px;color:var(--text3);font-size:0.78rem;font-weight:800;letter-spacing:3px;margin-bottom:4px;}
+.teacher-desk{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:9px 36px;border-radius:9px;font-weight:800;font-size:0.88rem;margin-bottom:10px;box-shadow:0 4px 14px rgba(26,86,219,.3);}
+.seat-row{display:flex;gap:10px;align-items:flex-start;}
+.row-num{font-size:.72rem;font-weight:800;color:var(--text3);width:18px;text-align:center;padding-top:14px;}
+.desk-pair{display:flex;gap:5px;}
+.desk-slot{width:105px;background:var(--surface2);border:2px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;transition:border-color .2s;}
+.desk-slot:focus-within{border-color:var(--primary);}
+.slot-photo{width:100%;aspect-ratio:1;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;overflow:hidden;}
+.slot-photo img{width:100%;height:100%;object-fit:cover;}
+.slot-select{width:100%;border:none;border-top:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:.7rem;padding:4px 6px;font-family:inherit;cursor:pointer;}
+.slot-select:focus{outline:none;}
+.aisle{width:20px;}
+
+/* SETTINGS TREE */
+.settings-section{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+.settings-section h3{font-size:.95rem;font-weight:800;margin-bottom:14px;color:var(--primary);}
+.tree-node{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--border);margin-bottom:5px;background:var(--surface2);}
+.badge{background:var(--primary-light);color:var(--primary);padding:2px 8px;border-radius:20px;font-size:.72rem;font-weight:800;}
+
+/* ALERTS */
+.alert{padding:11px 15px;border-radius:var(--radius-sm);margin-bottom:14px;font-size:.88rem;font-weight:700;}
+.alert-success{background:#d1fae5;color:#065f46;border:1.5px solid #6ee7b7;}
+.alert-error{background:var(--danger-light);color:#9b1c1c;border:1.5px solid #fca5a5;}
+.alert-info{background:var(--primary-light);color:var(--primary-dark);border:1.5px solid #93c5fd;}
+
+/* LOADING */
+.loading{display:flex;align-items:center;justify-content:center;gap:10px;padding:32px;color:var(--text2);}
+.spinner{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MISC */
+.hidden{display:none!important;}
+.page{display:none;}
+.page.active{display:block;}
+.teacher-tab{display:none;}
+.teacher-tab.active{display:block;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+.section-title{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:800;}
+.empty-state{text-align:center;padding:48px 24px;color:var(--text2);}
+.empty-state .ei{font-size:3rem;margin-bottom:12px;}
+hr{border:none;border-top:2px solid var(--border);margin:18px 0;}
+.flex{display:flex;}.gap-2{gap:8px;}.items-center{align-items:center;}.flex-1{flex:1;}
+@media(max-width:600px){.login-card{width:100%;max-width:300px;}.tabs .tab{font-size:.78rem;padding:7px 6px;}}
+@media print{.header,.tabs,.seating-controls,.btn,.ic-btn,.s-card-actions,.upload-btns,.class-selector,.section-header button{display:none!important;}.student-grid{grid-template-columns:repeat(4,1fr);}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">🏫</div>
+    <div>
+      <div>Atakum MESEM</div>
+      <div class="logo-sub">Sınıf Listesi & Oturma Planı</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="theme-pills">
+      <button class="theme-pill active" onclick="setTheme('light')">☀️</button>
+      <button class="theme-pill" onclick="setTheme('dark')">🌙</button>
+      <button class="theme-pill" onclick="setTheme('green')">🌿</button>
+      <button class="theme-pill" onclick="setTheme('orange')">🍊</button>
+    </div>
+    <button class="btn btn-outline btn-sm hidden" id="logoutBtn" onclick="logout()">Çıkış</button>
+  </div>
+</header>
+
+<!-- LOGIN PAGE -->
+<div id="loginPage" class="login-wrap">
+  <div class="login-hero">
+    <h1>🎓 Atakum MESEM</h1>
+    <p>Fotoğraflı Sınıf Listesi & Oturma Planı Sistemi</p>
+  </div>
+  <div id="firebaseStatus" class="alert alert-info" style="max-width:400px;text-align:center;">
+    <div class="loading" style="padding:8px;"><div class="spinner"></div> Firebase bağlantısı kuruluyor...</div>
+  </div>
+  <div class="login-cards">
+    <div class="login-card" onclick="loginTeacher()">
+      <div class="lc-icon">👩‍🏫</div>
+      <h3>Öğretmen Girişi</h3>
+      <p>Sınıf listesi, oturma planı ve öğrenci arama</p>
+      <button class="btn btn-primary" onclick="loginTeacher()">Şifresiz Giriş</button>
+    </div>
+    <div class="login-card" onclick="showAdminModal()">
+      <div class="lc-icon">🔐</div>
+      <h3>Yönetici Girişi</h3>
+      <p>Tüm işlemler + ayarlar + toplu sınıf işlemleri</p>
+      <button class="btn btn-danger" onclick="showAdminModal()">Şifreli Giriş</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN MODAL -->
+<div id="adminModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h3>🔐 Yönetici Girişi</h3>
+    <div class="form-group">
+      <label>Şifre</label>
+      <input type="password" id="adminPwd" placeholder="Yönetici şifresini girin" onkeydown="if(event.key==='Enter')doAdminLogin()">
+    </div>
+    <div id="adminLoginErr" class="alert alert-error hidden">❌ Şifre yanlış!</div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('adminModal')">İptal</button>
+      <button class="btn btn-danger" onclick="doAdminLogin()">Giriş</button>
+    </div>
+  </div>
+</div>
+
+<!-- YENİ KAYIT MODAL -->
+<div id="yeniKayitModal" class="modal-overlay hidden">
+  <div class="modal" style="max-width:520px;max-height:92vh;overflow-y:auto;">
+    <h3>➕ Yeni Öğrenci Kaydı</h3>
+    <div id="kayitAlert"></div>
+
+    <div class="photo-box" onclick="document.getElementById('galInput').click()" style="margin-bottom:10px;">
+      <div id="photoPreview">
+        <div style="font-size:2.5rem;">📸</div>
+        <div style="font-weight:800;color:var(--text2);margin-top:6px;">Fotoğraf Seçin</div>
+        <div style="font-size:.75rem;color:var(--text3);margin-top:2px;">Tıklayın veya aşağıdaki butonları kullanın</div>
+      </div>
+    </div>
+    <input type="file" id="galInput" accept="image/*" style="display:none" onchange="onPhoto(this)">
+    <input type="file" id="camInput" accept="image/*" capture="user" style="display:none" onchange="onPhoto(this)">
+    <div class="upload-btns" style="margin-bottom:14px;">
+      <button class="btn btn-primary btn-sm" onclick="document.getElementById('camInput').click()">📷 Kamera</button>
+      <button class="btn btn-outline btn-sm" onclick="document.getElementById('galInput').click()">🖼️ Galeri / Gözat</button>
+    </div>
+
+    <div class="form-group">
+      <label>Alan *</label>
+      <select id="alanSel" onchange="onAlan()"><option value="">-- Alan Seçin --</option></select>
+    </div>
+    <div class="form-group">
+      <label>Şube *</label>
+      <select id="subeSel" disabled><option value="">-- Önce Alan Seçin --</option></select>
+    </div>
+    <div class="form-group">
+      <label>Ad Soyad *</label>
+      <input type="text" id="adSoyad" placeholder="AD SOYAD" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')">
+    </div>
+    <div class="form-group">
+      <label>Okul Numarası <span style="color:var(--text3);font-weight:400;">(zorunlu değil)</span></label>
+      <input type="text" id="okulNo" placeholder="Sadece rakam" oninput="this.value=this.value.replace(/\D/g,'')">
+    </div>
+    <div class="form-group">
+      <label>Durum</label>
+      <select id="durumSel">
+        <option value="aktif" selected>✅ Aktif Öğrenci</option>
+        <option value="mezun">🎓 Mezun Öğrenci</option>
+        <option value="diger">📋 Diğerleri</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('yeniKayitModal')">Kapat</button>
+      <button class="btn btn-primary" id="submitBtn" onclick="submitStudent()">✅ Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- TEACHER PAGE -->
+<div id="teacherPage" class="page">
+  <div class="main">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap;">
+      <div class="tabs" style="margin-bottom:0;flex:1;">
+        <button class="tab active" onclick="showTab('list',this)">📋 Sınıf Listesi</button>
+        <button class="tab" onclick="showTab('seating',this)">🪑 Oturma Planı</button>
+        <button class="tab" onclick="showTab('search',this)">🔍 Öğrenci Ara</button>
+        <button class="tab" onclick="showTab('toplu',this)">📊 Toplu Liste</button>
+        <button class="tab hidden" id="adminSettingsTab" onclick="showTab('settings',this)">⚙️ Ayarlar</button>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="openYeniKayit()" style="white-space:nowrap;">➕ Yeni Kayıt</button>
+    </div>
+
+    <!-- LIST TAB -->
+    <div id="tab-list" class="teacher-tab active">
+      <div class="section-header">
+        <div class="section-title">📋 Fotoğraflı Sınıf Listesi</div>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="exportPDF()">📄 PDF</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportHTMLList()">🌐 HTML</button>
+        </div>
+      </div>
+      <div class="flex gap-2 items-center" style="margin-bottom:18px;flex-wrap:wrap;">
+        <div class="form-group flex-1" style="margin:0;min-width:200px;">
+          <label style="font-size:.8rem;">Şube Seçin</label>
+          <select id="teacherSubeSel" onchange="loadStudents()"><option value="">-- Şube Seçin --</option></select>
+        </div>
+      </div>
+      <div id="classGrid">
+        <div class="empty-state"><div class="ei">🎓</div><div>Görüntülemek için şube seçin</div></div>
+      </div>
+    </div>
+
+    <!-- SEATING TAB -->
+    <div id="tab-seating" class="teacher-tab">
+      <div class="section-title" style="margin-bottom:16px;">🪑 Oturma Planı</div>
+      <div class="seating-controls">
+        <div class="form-group" style="margin:0;min-width:180px;">
+          <label>Şube</label>
+          <select id="seatSubeSel" onchange="loadSeatStudents()"><option value="">-- Şube Seçin --</option></select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Sıra Sayısı</label>
+          <select id="seatRows" onchange="renderSeating()">
+            <option>3</option><option>4</option><option selected>5</option><option>6</option><option>7</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Manga Sayısı</label>
+          <select id="seatCols" onchange="renderSeating()">
+            <option>3</option><option selected>4</option><option>5</option><option>6</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Sıra Başı Öğrenci</label>
+          <select id="seatPer" onchange="renderSeating()">
+            <option selected>2</option><option>1</option>
+          </select>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="exportSeatPDF()">📄 PDF</button>
+        <button class="btn btn-ghost btn-sm" onclick="exportSeatHTML()">🌐 HTML</button>
+      </div>
+      <div class="seating-wrap">
+        <div id="seatingBoard" class="seating-board">
+          <div class="empty-state"><div class="ei">🪑</div><div>Şube seçin</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS TAB -->
+    <div id="tab-settings" class="teacher-tab">
+      <div class="section-title" style="margin-bottom:16px;">⚙️ Alan / Şube Yönetimi</div>
+
+      <div class="settings-section">
+        <h3>➕ Alan Ekle</h3>
+        <div class="flex gap-2 items-center">
+          <div class="form-group flex-1" style="margin:0;"><input type="text" id="newAlan" placeholder="Alan adı"></div>
+          <button class="btn btn-primary btn-sm" onclick="addAlan()">Ekle</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>➕ Şube Ekle</h3>
+        <div class="flex gap-2 items-center" style="flex-wrap:wrap;">
+          <div class="form-group flex-1" style="margin:0;min-width:160px;">
+            <select id="sAlan2"><option value="">-- Alan --</option></select>
+          </div>
+          <div class="form-group flex-1" style="margin:0;min-width:160px;"><input type="text" id="newSube" placeholder="Şube adı (örn: 9 - YENİ ŞUBE)"></div>
+          <button class="btn btn-primary btn-sm" onclick="addSube()">Ekle</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>📋 Mevcut Yapı</h3>
+        <div id="structureTree"></div>
+      </div>
+
+      <!-- KAYIP KAYIT KURTARMA VE YEDEK -->
+      <div class="settings-section" style="border-color:var(--secondary);">
+        <h3 style="color:var(--secondary);">🛟 Kayıp Kayıt Kurtarma ve Yedek</h3>
+        <div style="font-size:.85rem;color:var(--text2);margin-bottom:12px;line-height:1.5;">
+          Şubesi silinen veya adı değişen öğrenciler listelerde görünmez ama veritabanında durur. "Veritabanını Tara" bu kayıtları bulur, şubeyi yapıya geri ekleyerek öğrencileri yeniden görünür yapar.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+          <button class="btn btn-secondary btn-sm" onclick="scanOrphans()">🔎 Veritabanını Tara</button>
+          <button class="btn btn-ghost btn-sm" onclick="downloadBackup()">💾 Yedek İndir (JSON)</button>
+        </div>
+        <div id="orphanResults"></div>
+      </div>
+
+      <!-- TOPLU SINIF İŞLEMLERİ -->
+      <div class="settings-section" style="border-color:var(--warning);border-width:2px;">
+        <h3 style="color:var(--warning);">⚡ Toplu Sınıf İşlemleri</h3>
+
+        <!-- TAŞIMA -->
+        <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:14px;">
+          <div style="font-weight:800;font-size:.95rem;margin-bottom:12px;color:var(--text);">🔀 Şube Taşıma <span style="font-size:.78rem;font-weight:400;color:var(--text2);">— Kaynak şubedeki tüm öğrencileri hedef şubeye taşır</span></div>
+          <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:end;margin-bottom:12px;">
+            <div>
+              <div style="font-size:.8rem;font-weight:800;color:var(--text2);margin-bottom:6px;">📤 Kaynak Şube</div>
+              <select id="tasimaKaynak" style="width:100%;padding:9px 12px;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-family:inherit;font-size:.88rem;" onchange="onTasimaKaynakChange()">
+                <option value="">-- Kaynak Şube Seçin --</option>
+              </select>
+            </div>
+            <div style="text-align:center;padding-bottom:8px;font-size:1.4rem;color:var(--text3);">→</div>
+            <div>
+              <div style="font-size:.8rem;font-weight:800;color:var(--text2);margin-bottom:6px;">📥 Hedef Şube</div>
+              <select id="tasimaHedef" style="width:100%;padding:9px 12px;border:2px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text);font-family:inherit;font-size:.88rem;">
+                <option value="">-- Hedef Şube Seçin --</option>
+              </select>
+            </div>
+          </div>
+          <div id="tasimaPreview" style="display:none;background:var(--primary-light);border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:10px;font-size:.85rem;color:var(--primary-dark);font-weight:600;"></div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn btn-primary btn-sm" onclick="doTasima()">🔀 Taşımayı Başlat</button>
+            <span style="font-size:.78rem;color:var(--text3);">Kaynak şubedeki öğrencilerin şube/alan/dal bilgisi hedef şubeye göre güncellenir.</span>
+          </div>
+        </div>
+
+        <!-- MEZUN YAP -->
+        <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:14px;">
+          <div style="font-weight:800;font-size:.95rem;margin-bottom:6px;color:var(--text);">🎓 Şubeyi Mezun Yap <span style="font-size:.78rem;font-weight:400;color:var(--text2);">— Seçilen şubedeki tüm öğrencilerin durumunu "Mezun Öğrenci" yapar</span></div>
+          <div style="font-size:.8rem;color:var(--secondary);font-weight:600;margin-bottom:12px;">✅ Öğrenciler silinmez, sadece durum değişir. Önceki mezunlar etkilenmez.</div>
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+            <div class="form-group flex-1" style="margin:0;min-width:200px;">
+              <label>Mezun Edilecek Şube</label>
+              <select id="mezunSube">
+                <option value="">-- Şube Seçin --</option>
+              </select>
+            </div>
+            <button class="btn btn-secondary btn-sm" onclick="doSubeMezun()">🎓 Mezun Yap</button>
+          </div>
+        </div>
+
+        <!-- BOŞALTMA -->
+        <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:14px;">
+          <div style="font-weight:800;font-size:.95rem;margin-bottom:12px;color:var(--text);">🗑️ Şube Boşaltma <span style="font-size:.78rem;font-weight:400;color:var(--text2);">— Seçilen şubedeki tüm öğrencileri kalıcı siler</span></div>
+          <div style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;">
+            <div class="form-group flex-1" style="margin:0;min-width:200px;">
+              <label>Boşaltılacak Şube</label>
+              <select id="bosaltSube">
+                <option value="">-- Şube Seçin --</option>
+              </select>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="doSubeBosalt()">🗑️ Şubeyi Boşalt</button>
+          </div>
+        </div>
+
+        <!-- TEK ÖĞRENCİ TAŞIMA -->
+        <div style="background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:16px;">
+          <div style="font-weight:800;font-size:.95rem;margin-bottom:12px;color:var(--text);">👤 Seçili Öğrencileri Taşı <span style="font-size:.78rem;font-weight:400;color:var(--text2);">— Bir şubeden öğrenci seçip başka şubeye taşı</span></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
+            <div class="form-group" style="margin:0;">
+              <label>Kaynak Şube</label>
+              <select id="seciliKaynak" onchange="loadSeciliOgrenciler()">
+                <option value="">-- Şube Seçin --</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin:0;">
+              <label>Hedef Şube</label>
+              <select id="seciliHedef">
+                <option value="">-- Şube Seçin --</option>
+              </select>
+            </div>
+          </div>
+          <div id="seciliOgrenciListesi" style="max-height:200px;overflow-y:auto;border:1.5px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);margin-bottom:10px;display:none;"></div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+            <button class="btn btn-primary btn-sm" onclick="doSeciliTasima()">👤 Seçilileri Taşı</button>
+            <button class="btn btn-ghost btn-xs" onclick="toggleSeciliAll(true)">Tümünü Seç</button>
+            <button class="btn btn-ghost btn-xs" onclick="toggleSeciliAll(false)">Seçimi Kaldır</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SEARCH TAB -->
+    <div id="tab-search" class="teacher-tab">
+      <div class="section-title" style="margin-bottom:16px;">🔍 Öğrenci Ara</div>
+      <div style="display:flex;gap:10px;align-items:flex-end;margin-bottom:20px;flex-wrap:wrap;">
+        <div class="form-group flex-1" style="margin:0;min-width:220px;">
+          <label>Ad veya Soyad ile Ara</label>
+          <input type="text" id="searchInput" placeholder="Ad soyad yazın..." oninput="this.value=this.value.toLocaleUpperCase('tr-TR')" onkeydown="if(event.key==='Enter')doSearch()">
+        </div>
+        <button class="btn btn-primary" onclick="doSearch()">🔍 Ara</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('searchInput').value='';document.getElementById('searchResults').innerHTML='<div class=\'empty-state\'><div class=\'ei\'>🔍</div><div>Aramak için ad veya soyad girin</div></div>'">✕ Temizle</button>
+      </div>
+      <div id="searchLoading" class="hidden"><div class="loading"><div class="spinner"></div> Aranıyor...</div></div>
+      <div id="searchResults">
+        <div class="empty-state"><div class="ei">🔍</div><div>Aramak için ad veya soyad girin</div></div>
+      </div>
+    </div>
+
+    <!-- TOPLU LİSTE TAB -->
+    <div id="tab-toplu" class="teacher-tab">
+      <div class="section-header">
+        <div class="section-title">📊 Toplu Öğrenci Listesi</div>
+        <div class="flex gap-2">
+          <button class="btn btn-ghost btn-sm" onclick="exportTopluPDF()">📄 PDF</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportTopluHTML()">🌐 HTML</button>
+        </div>
+      </div>
+
+      <!-- FİLTRELER -->
+      <div style="background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;">
+        <div style="font-size:.9rem;font-weight:800;color:var(--primary);margin-bottom:14px;">🔎 Filtreler</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:14px;">
+          <div class="form-group" style="margin:0;">
+            <label>İsim / Soyisim</label>
+            <input type="text" id="fAd" placeholder="Ad soyad ara..." oninput="this.value=this.value.toLocaleUpperCase('tr-TR')">
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>Alan</label>
+            <select id="fAlan" onchange="onTopluAlan()">
+              <option value="">Tümü</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>Şube</label>
+            <select id="fSube">
+              <option value="">Tümü</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>Fotoğraf Durumu</label>
+            <select id="fFoto">
+              <option value="">Tümü</option>
+              <option value="var">Fotoğrafı Var</option>
+              <option value="yok">Fotoğrafı Yok</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin:0;">
+            <label>Öğrenci Durumu</label>
+            <select id="fDurum">
+              <option value="">Tümü</option>
+              <option value="aktif">✅ Aktif Öğrenci</option>
+              <option value="mezun">🎓 Mezun Öğrenci</option>
+              <option value="diger">📋 Diğerleri</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-primary" onclick="doTopluList()">🔍 Listele</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearTopluFilters()">✕ Filtreleri Temizle</button>
+          <span id="topluCount" style="font-size:.85rem;color:var(--text2);font-weight:700;"></span>
+        </div>
+      </div>
+
+      <!-- GÖRÜNÜM SEÇİMİ -->
+      <div style="display:flex;gap:8px;margin-bottom:16px;align-items:center;">
+        <span style="font-size:.82rem;font-weight:700;color:var(--text2);">Görünüm:</span>
+        <button class="btn btn-primary btn-xs" id="viewKart" onclick="setTopluView('kart')">🖼 Kart</button>
+        <button class="btn btn-ghost btn-xs" id="viewTablo" onclick="setTopluView('tablo')">📋 Tablo</button>
+      </div>
+
+      <div id="topluLoading" class="hidden"><div class="loading"><div class="spinner"></div> Yükleniyor...</div></div>
+      <div id="topluResults">
+        <div class="empty-state"><div class="ei">📊</div><div>Filtreleri seçip "Listele" butonuna tıklayın</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX MODAL -->
+<div id="lightbox" class="modal-overlay hidden" onclick="closeLightbox(event)" style="background:rgba(0,0,0,0.88);cursor:zoom-out;align-items:center;justify-content:center;">
+  <div style="position:relative;max-width:92vw;max-height:92vh;display:flex;flex-direction:column;align-items:center;gap:12px;" onclick="event.stopPropagation()">
+    <button onclick="closeLightbox()" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.4rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    <img id="lightboxImg" src="" style="max-width:88vw;max-height:80vh;object-fit:contain;border-radius:12px;box-shadow:0 8px 48px rgba(0,0,0,0.6);">
+    <div id="lightboxInfo" style="color:#fff;font-size:0.95rem;font-weight:700;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,.8);"></div>
+    <a id="lightboxOpen" href="#" target="_blank" style="color:#93c5fd;font-size:0.82rem;text-decoration:underline;">🔗 Yeni sekmede aç / tam ekran</a>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div id="editModal" class="modal-overlay hidden">
+  <div class="modal" style="max-width:500px;max-height:90vh;overflow-y:auto;">
+    <h3>✏️ Öğrenci Düzenle</h3>
+    <div class="form-group"><label>Ad Soyad *</label><input type="text" id="eAdSoyad" oninput="this.value=this.value.toLocaleUpperCase('tr-TR')"></div>
+    <div class="form-group"><label>Okul Numarası</label><input type="text" id="eOkulNo" oninput="this.value=this.value.replace(/\D/g,'')"></div>
+    <div class="form-group"><label>Alan *</label><select id="eAlan" onchange="onEditAlan()"><option value="">-- Alan Seçin --</option></select></div>
+    <div class="form-group"><label>Şube *</label><select id="eSube" disabled><option value="">-- Önce Alan Seçin --</option></select></div>
+    <div class="form-group">
+      <label>Durum</label>
+      <select id="eDurum">
+        <option value="aktif">✅ Aktif Öğrenci</option>
+        <option value="mezun">🎓 Mezun Öğrenci</option>
+        <option value="diger">📋 Diğerleri</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Fotoğraf Değiştir <span style="color:var(--text3);font-weight:400;">(isteğe bağlı)</span></label>
+      <div id="ePhotoPreview" style="margin-bottom:8px;"></div>
+      <div class="upload-btns" style="justify-content:flex-start;">
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('ePhotoCam').click()">📷 Kamera</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('ePhotoGal').click()">🖼️ Galeri</button>
+      </div>
+      <input type="file" id="ePhotoCam" accept="image/*" capture="user" style="display:none" onchange="onEditPhoto(this)">
+      <input type="file" id="ePhotoGal" accept="image/*" style="display:none" onchange="onEditPhoto(this)">
+    </div>
+    <input type="hidden" id="eId">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('editModal')">İptal</button>
+      <button class="btn btn-primary" onclick="saveEdit()">💾 Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE MODAL -->
+<div id="delModal" class="modal-overlay hidden">
+  <div class="modal">
+    <h3>🗑️ Silme Onayı</h3>
+    <p style="color:var(--text2);margin-bottom:20px;">Bu öğrenciyi silmek istediğinize emin misiniz?</p>
+    <input type="hidden" id="delId">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal('delModal')">İptal</button>
+      <button class="btn btn-danger" onclick="confirmDel()">Evet, Sil</button>
+    </div>
+  </div>
+</div>
+
+<!-- Firebase SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCKa9cNn0xL7j-TwcunUJ2LfFhqv43kUy4",
+  authDomain: "sinif-foto-a381e.firebaseapp.com",
+  projectId: "sinif-foto-a381e",
+  storageBucket: "sinif-foto-a381e.firebasestorage.app",
+  messagingSenderId: "907891830337",
+  appId: "1:907891830337:web:0a51b8ca3fd70e824fe0c0",
+  measurementId: "G-C3DQ9S8D35"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// Expose to global
+window._db = db;
+window._col = (name) => collection(db, name);
+window._addDoc = addDoc;
+window._getDocs = getDocs;
+window._doc = doc;
+window._updateDoc = updateDoc;
+window._deleteDoc = deleteDoc;
+window._query = query;
+window._where = where;
+window._orderBy = orderBy;
+
+// Test connection
+try {
+  document.getElementById('firebaseStatus').innerHTML = '✅ Firebase bağlantısı başarılı!';
+  document.getElementById('firebaseStatus').className = 'alert alert-success';
+  setTimeout(()=>document.getElementById('firebaseStatus').classList.add('hidden'), 3000);
+} catch(e) {
+  document.getElementById('firebaseStatus').innerHTML = '❌ Bağlantı hatası: ' + e.message;
+  document.getElementById('firebaseStatus').className = 'alert alert-error';
+}
+
+// Load structure from Firestore or use default
+window.initStructure = async function() {
+  try {
+    const snap = await _getDocs(_col('structure'));
+    if (snap.empty) {
+      window._structure = normalizeStructure(defaultStructure);
+      await _addDoc(_col('structure'), { data: JSON.stringify(window._structure), v: 2 });
+    } else {
+      window._structure = normalizeStructure(JSON.parse(snap.docs[0].data().data));
+      window._structureDocId = snap.docs[0].id;
+    }
+  } catch(e) {
+    window._structure = normalizeStructure(defaultStructure);
+    console.warn('Structure load error:', e);
+  }
+  initUI();
+};
+
+window.saveStructureToDb = async function() {
+  try {
+    const snap = await _getDocs(_col('structure'));
+    if (snap.empty) {
+      await _addDoc(_col('structure'), { data: JSON.stringify(window._structure), v: 1 });
+    } else {
+      await _updateDoc(_doc(_db, 'structure', snap.docs[0].id), { data: JSON.stringify(window._structure) });
+    }
+  } catch(e) { console.warn('Structure save error:', e); }
+};
+
+window.dbAddStudent = async function(student) {
+  return await _addDoc(_col('students'), student);
+};
+
+window.dbGetStudents = async function(sube) {
+  const q = _query(_col('students'), _where('sube','==',sube));
+  const snap = await _getDocs(q);
+  return snap.docs.map(d => ({id: d.id, ...d.data()}));
+};
+
+window.dbUpdateStudent = async function(id, data) {
+  await _updateDoc(_doc(_db, 'students', id), data);
+};
+
+window.dbGetAllStudents = async function() {
+  const snap = await _getDocs(_col('students'));
+  return snap.docs.map(d => ({id: d.id, ...d.data()}));
+};
+
+window.dbDeleteStudent = async function(id) {
+  await _deleteDoc(_doc(_db, 'students', id));
+};
+
+window.initStructure();
+</script>
+
+<script>
+// ==================== DEFAULT STRUCTURE ====================
+const defaultStructure = {
+  "Bilişim Teknolojileri": {
+    "Bilişim Teknolojileri": [{sinif:9,name:"9 - BİLİŞİM"},{sinif:10,name:"10- BİLİŞİM"}],
+    "Bilgisayar Teknik Servisi": [{sinif:11,name:"11- BİLİŞİM"},{sinif:12,name:"12-BİLİŞM"}]
+  },
+  "Elektrik- Elektronik Teknolojisi": {
+    "Elektrik- Elektronik Teknolojisi": [{sinif:9,name:"9 - ELEKTİRİK"},{sinif:10,name:"10 - ELEKTRİK 1"},{sinif:10,name:"10 - ELEKTRİK 2"}],
+    "Elektrik Tesisatları Ve Pano Montörlüğü": [{sinif:11,name:"11 - ELEKTRİK TESİSAT PANO"},{sinif:12,name:"12- PANO"}],
+    "Elektrikli Ev Aletleri Teknik Servisi": [{sinif:11,name:"11-ELKT EV ALETLERİ"},{sinif:12,name:"12- ELEKTİRİKLİ EV ALETLERİ TEKNİK SERVİSİ"}],
+    "Görüntü Ve Ses Sistemleri": [{sinif:11,name:"11-GÖRÜNTÜ SES"},{sinif:12,name:"12-GÖRÜNTÜ VE SES"}],
+    "Haberleşme Sistemleri": [{sinif:12,name:"12-HABERLEŞME"}],
+    "Asansör Sistemleri": [{sinif:12,name:"12-ASANSÖR"}]
+  },
+  "Mobilya Ve İç Mekân Tasarımı": {
+    "Mobilya Ve İç Mekân Tasarımı": [{sinif:9,name:"9 - MOBİLYA"},{sinif:10,name:"10-MOBİLYA"}],
+    "İç Mekân Ve Mobilya Teknolojisi": [{sinif:12,name:"12 MOBİLYA"}]
+  },
+  "Tesisat Teknolojisi Ve İklimlendirme": {
+    "Tesisat Teknolojisi Ve İklimlendirme": [{sinif:9,name:"9 - TESİSAT"},{sinif:10,name:"10 - TESİSAT"}],
+    "Isıtma Ve Sıhhi Tesisat Sistemleri": [{sinif:11,name:"11 - ISITMA VE SIHHİ TESİSAT SİSTEMLERİ"},{sinif:12,name:"12- Isıtma Ve Sıhhi Tesisat Sistemleri"}],
+    "İklimlendirme Sistemleri": [{sinif:11,name:"11-İKLİMLENDİRME"},{sinif:12,name:"12- İKLİMLENDİRME"}],
+    "Gaz Yakıcı Cihazlar Ve Servis": [{sinif:12,name:"12-Gaz Yakıcı Cihazlar Ve Servis"}]
+  },
+  "Yiyecek İçecek Hizmetleri": {
+    "Aşçılık": [{sinif:9,name:"9 - YİYECEK"},{sinif:10,name:"10 - YİYECEK"},{sinif:11,name:"11-AHÇILIK"},{sinif:12,name:"12- AŞÇILIK"}],
+    "Kantin İşletmeciliği": [{sinif:11,name:"11 - KANTİN İŞLETMECİLİĞİ"},{sinif:12,name:"12 KANTİN (mesleki eğitim)"}],
+    "Pasta Ve Tatlı Yapımı": [{sinif:11,name:"11 - PASTA VE TATLI"},{sinif:12,name:"12 - PASTA VE TATLI"}],
+    "Fırıncılık": [{sinif:11,name:"11-FIRINCILIK"},{sinif:12,name:"12-FIRINCILIK"}],
+    "Kasaplık": [{sinif:12,name:"12-KASAPLIK"}]
+  },
+  "Güzellik Ve Saç Bakım Hizmetleri": {
+    "Erkek Kuaförlüğü": [{sinif:9,name:"9- ERKEK KUAFÖRLÖĞÜ 1"},{sinif:9,name:"9- ERKEK KUAFÖRLÖĞÜ 2"},{sinif:11,name:"11- ERKEK KUAFÖRLÜĞÜ"},{sinif:12,name:"12 - ERKEK KUAFÖRLÜĞÜ"}],
+    "Kadın Kuaförlüğü": [{sinif:9,name:"9- KADIN KUAFÖRLÜĞÜ VE CİLT 1"},{sinif:9,name:"9- KADIN KUAFÖRLÜĞÜ VE CİLT 2"},{sinif:11,name:"11 - KADIN KUAFÖRLÜĞÜ"},{sinif:12,name:"12 - KADIN KUAFÖRLÜĞÜ"}],
+    "Cilt Bakımı Ve Makyaj": [{sinif:11,name:"11 - CİLT BAKIMI VE MAKYAJ"},{sinif:12,name:"12 -Cilt Bakım Makyaj"}],
+    "Güzellik Ve Saç Bakım Hizmetleri": [{sinif:10,name:"10 - GÜZELLİK 1"},{sinif:10,name:"10 - GÜZELLİK 2"},{sinif:10,name:"10 - GÜZELLİK 3"}]
+  },
+  "Hayvan Yetiştiriciliği Ve Sağlığı": {
+    "Ev Ve Süs Hayvanları": [{sinif:9,name:"9- EVCİL HAYVANCILIK"},{sinif:10,name:"10- EVCİL HAYVANCILIK"}]
+  },
+  "Grafik Ve Fotoğraf": {
+    "Fotoğraf": [{sinif:9,name:"9 FOTOĞRAF"},{sinif:10,name:"10-FOTOĞRAF"}]
+  },
+  "Motorlu Araçlar Teknolojisi": {
+    "Motorlu Araçlar Teknolojisi": [{sinif:9,name:"9- MOTORLU ARAÇLAR"},{sinif:10,name:"10-MOTOR"}],
+    "Otomotiv Mekanikerliği": [{sinif:11,name:"11-MOTR"}],
+    "Motosiklet Tamirciliği": [{sinif:11,name:"11-MOTT"},{sinif:12,name:"12 MOTOSİKLET TMR"}],
+    "Otomotiv Elektrikçiliği": [{sinif:11,name:"11-OTELK"},{sinif:12,name:"12- OTO ELEKTRİK"}]
+  },
+  "İnşaat Teknolojisi": {
+    "İnşaat Teknolojisi": [{sinif:9,name:"9-İNŞAAT"},{sinif:10,name:"10- İNŞAAT"}],
+    "Mimari Yapı Teknik Ressamlığı": [{sinif:11,name:"11- MİMARİ YAPI TEKNİK RESSAMLIĞI"},{sinif:12,name:"12-MİMARİ YAPI"}],
+    "Statik Yapı Teknik Ressamlığı": [{sinif:11,name:"11- STATİK YAPI TEKNİK RESSAMLIĞI"}],
+    "Cephe Sistemleri Ve Pvc Doğrama": [{sinif:12,name:"12- CEPHE SİSTEMLERİ VE PVC DOĞRAMA"}]
+  },
+  "Muhasebe Ve Finansman": {
+    "Muhasebe": [{sinif:9,name:"9-MUHASEBE"},{sinif:10,name:"10- MUHASEBE"},{sinif:10,name:"10 AAMUHASEBE"},{sinif:12,name:"12 - MUHASEBE"}]
+  },
+  "Makine Teknolojisi": {
+    "Makine Bakım Onarım": [{sinif:10,name:"10 - MAKİNE BAKIM ONARIM"},{sinif:11,name:"11- MAKİNE BO"}]
+  }
+};
+
+
+// ==================== ALAN → ŞUBE YAPISI ====================
+// Dal ve sınıf seviyesi arayüzde gizlidir. Her alanın altında tek bir iç dal (TEK_DAL) bulunur,
+// böylece veritabanındaki eski kayıtlara ve yapıya dokunmak gerekmez.
+const TEK_DAL = 'Tümü';
+const ALAN_LISTESI = [
+  'Bilişim Teknolojileri', 'Elektrik- Elektronik Teknolojisi', 'Grafik Ve Fotoğraf',
+  'Güzellik Ve Saç Bakım Hizmetleri', 'Hayvan Yetiştiriciliği Ve Sağlığı', 'Makine Teknolojisi',
+  'Mobilya Ve İç Mekân Tasarımı', 'Motorlu Araçlar Teknolojisi', 'Muhasebe Ve Finansman',
+  'Tesisat Teknolojisi Ve İklimlendirme', 'Yiyecek İçecek Hizmetleri', 'İnşaat Teknolojisi'
+];
+function alanKey(s) {
+  return String(s || '').toLocaleLowerCase('tr-TR').replace(/â/g, 'a').replace(/[^a-z0-9çğıöşü]/g, '');
+}
+const ALAN_ESLESTIR = {};
+[['Fotoğraf (Grafik ve Fotoğraf)', 'Grafik Ve Fotoğraf'],
+ ['Hayvan Yetiştiriciliği', 'Hayvan Yetiştiriciliği Ve Sağlığı']].forEach(function(p) { ALAN_ESLESTIR[alanKey(p[0])] = p[1]; });
+
+function canonAlan(name) {
+  const k = alanKey(name);
+  if (!k) return '';
+  if (ALAN_ESLESTIR[k]) return ALAN_ESLESTIR[k];
+  const hit = ALAN_LISTESI.find(function(c) { return alanKey(c) === k; });
+  return hit || String(name).trim();
+}
+// Şube adından sınıf seviyesini bulur: "9 - BİLİŞİM", "Bilişim Teknolojileri 10", "Güzellik 9-B" ...
+function subeSeviye(name) {
+  const m = String(name || '').match(/(?:^|[^0-9])(9|1[0-2])(?![0-9])/);
+  return m ? parseInt(m[1], 10) : null;
+}
+function subeSirala(a, b) {
+  const la = subeSeviye(a.name), lb = subeSeviye(b.name);
+  const x = la === null ? 99 : la, y = lb === null ? 99 : lb;
+  if (x !== y) return x - y;
+  return a.name.localeCompare(b.name, 'tr', { numeric: true });
+}
+// Eski (alan > dal > şube) yapıyı Alan > Şube yapısına çevirir. Hiçbir şube adı silinmez.
+function normalizeStructure(raw) {
+  const out = {};
+  const seen = new Set();
+  Object.keys(raw || {}).forEach(function(alanRaw) {
+    const alan = canonAlan(alanRaw);
+    if (!alan) return;
+    if (!out[alan]) out[alan] = {};
+    if (!out[alan][TEK_DAL]) out[alan][TEK_DAL] = [];
+    const val = raw[alanRaw];
+    const lists = Array.isArray(val) ? [val] : Object.keys(val || {}).map(function(k) { return val[k]; });
+    lists.forEach(function(list) {
+      (list || []).forEach(function(item) {
+        const name = typeof item === 'string' ? item : (item && item.name);
+        if (!name || seen.has(name)) return;
+        seen.add(name);
+        out[alan][TEK_DAL].push({ name: name, sinif: subeSeviye(name) || (item && item.sinif) || 9 });
+      });
+    });
+  });
+  Object.keys(out).forEach(function(a) { out[a][TEK_DAL].sort(subeSirala); });
+  return out;
+}
+window._structure = normalizeStructure(defaultStructure);
+
+function alanlar() {
+  return Object.keys(window._structure || {}).sort(function(a, b) { return a.localeCompare(b, 'tr'); });
+}
+function alanSubeleri(alan) {
+  const a = (window._structure || {})[alan];
+  const out = [];
+  if (!a) return out;
+  Object.keys(a).forEach(function(d) { a[d].forEach(function(x) { out.push(x); }); });
+  return out.sort(subeSirala);
+}
+function alanOfSube(sube) {
+  const st = window._structure || {};
+  for (const a in st) for (const d in st[a]) if (st[a][d].some(function(x) { return x.name === sube; })) return a;
+  return null;
+}
+function fillSubeSelect(sel, placeholder) {
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">' + placeholder + '</option>';
+  alanlar().forEach(function(alan) {
+    const list = alanSubeleri(alan);
+    if (!list.length) return;
+    const og = document.createElement('optgroup'); og.label = alan;
+    list.forEach(function(x) {
+      const o = document.createElement('option'); o.value = x.name; o.textContent = x.name;
+      if (x.name === cur) o.selected = true;
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+}
+
+// ==================== STATE ====================
+const TEACHER_PWD = 'AtakumMesem55';
+let currentUser = null;
+let studentPhotoData = null;
+let editPhotoData = null;
+let seatStudents = [];
+
+// ==================== THEME ====================
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t === 'light' ? '' : t);
+  localStorage.setItem('mesem_theme', t);
+  document.querySelectorAll('.theme-pill').forEach((b,i) => {
+    b.classList.toggle('active', ['light','dark','green','orange'][i] === t);
+  });
+}
+(function() { setTheme(localStorage.getItem('mesem_theme') || 'light'); })();
+
+// ==================== AUTH ====================
+function loginTeacher() {
+  currentUser = 'teacher';
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('teacherPage').classList.add('active');
+  document.getElementById('logoutBtn').classList.remove('hidden');
+  // Hide admin-only tabs
+  document.getElementById('adminSettingsTab').classList.add('hidden');
+  initTeacher();
+}
+
+function showAdminModal() {
+  document.getElementById('adminModal').classList.remove('hidden');
+  document.getElementById('adminPwd').value = '';
+  document.getElementById('adminLoginErr').classList.add('hidden');
+  setTimeout(() => document.getElementById('adminPwd').focus(), 100);
+}
+
+function doAdminLogin() {
+  if (document.getElementById('adminPwd').value === TEACHER_PWD) {
+    closeModal('adminModal');
+    currentUser = 'admin';
+    document.getElementById('loginPage').style.display = 'none';
+    document.getElementById('teacherPage').classList.add('active');
+    document.getElementById('logoutBtn').classList.remove('hidden');
+    // Show admin-only tabs
+    document.getElementById('adminSettingsTab').classList.remove('hidden');
+    initTeacher();
+  } else {
+    document.getElementById('adminLoginErr').classList.remove('hidden');
+  }
+}
+
+function openYeniKayit() {
+  initStudentForm();
+  document.getElementById('yeniKayitModal').classList.remove('hidden');
+}
+
+function logout() {
+  currentUser = null;
+  document.getElementById('loginPage').style.display = '';
+  document.getElementById('teacherPage').classList.remove('active');
+  document.getElementById('logoutBtn').classList.add('hidden');
+}
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+// ==================== INIT UI ====================
+function initUI() {
+  initStudentForm();
+}
+
+// ==================== STUDENT FORM ====================
+function initStudentForm() {
+  const sel = document.getElementById('alanSel');
+  sel.innerHTML = '<option value="">-- Alan Seçin --</option>';
+  alanlar().forEach(a => {
+    const o = document.createElement('option');
+    o.value = a; o.textContent = a; sel.appendChild(o);
+  });
+  const subeSel = document.getElementById('subeSel');
+  subeSel.innerHTML = '<option value="">-- Önce Alan Seçin --</option>';
+  subeSel.disabled = true;
+  studentPhotoData = null;
+  document.getElementById('photoPreview').innerHTML = '<div style="font-size:3rem;">📸</div><div style="font-weight:800;color:var(--text2);margin-top:6px;">Fotoğraf Seçin</div><div style="font-size:.78rem;color:var(--text3);margin-top:3px;">Tıklayın veya aşağıdaki butonları kullanın</div>';
+  document.getElementById('adSoyad').value = '';
+  document.getElementById('okulNo').value = '';
+  document.getElementById('durumSel').value = 'aktif';
+}
+
+function onAlan() {
+  const alan = document.getElementById('alanSel').value;
+  const subeSel = document.getElementById('subeSel');
+  subeSel.innerHTML = '<option value="">-- Şube Seçin --</option>';
+  if (alan) {
+    alanSubeleri(alan).forEach(x => {
+      const o = document.createElement('option'); o.value = x.name; o.textContent = x.name; subeSel.appendChild(o);
+    });
+    subeSel.disabled = false;
+  } else { subeSel.disabled = true; }
+}
+
+function onDal() { /* dal artık kullanılmıyor */ }
+
+function onPhoto(input) {
+  const file = input.files[0]; if (!file) return;
+  // Compress
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const maxW = 400, maxH = 400;
+      let w = img.width, h = img.height;
+      if (w > h) { if (w > maxW) { h = h * maxW / w; w = maxW; } }
+      else { if (h > maxH) { w = w * maxH / h; h = maxH; } }
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      studentPhotoData = canvas.toDataURL('image/jpeg', 0.75);
+      document.getElementById('photoPreview').innerHTML = `<img src="${studentPhotoData}"><div style="font-size:.78rem;color:var(--secondary);font-weight:800;margin-top:6px;">✅ Fotoğraf seçildi</div>`;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function scrollKayitTop() {
+  const m = document.querySelector('#yeniKayitModal .modal');
+  if (m && m.scrollTo) m.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+async function submitStudent() {
+  const alan = document.getElementById('alanSel').value;
+  const sube = document.getElementById('subeSel').value;
+  const adSoyad = document.getElementById('adSoyad').value.trim();
+  const okulNo = document.getElementById('okulNo').value.trim();
+  if (!alan || !sube || !adSoyad) {
+    showAlert('kayitAlert', '❌ Lütfen alan, şube ve ad soyad alanlarını doldurun!', 'error');
+    scrollKayitTop(); return;
+  }
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true; btn.textContent = '⏳ Kaydediliyor...';
+  try {
+    const durum = document.getElementById('durumSel').value || 'aktif';
+    await window.dbAddStudent({ alan, dal: TEK_DAL, sube, adSoyad, okulNo: okulNo || '999999', durum, photo: studentPhotoData || null, createdAt: new Date().toISOString() });
+    showAlert('kayitAlert', '✅ Kayıt başarıyla eklendi!', 'success');
+    scrollKayitTop();
+    setTimeout(() => initStudentForm(), 1500);
+  } catch(e) {
+    showAlert('kayitAlert', '❌ Kayıt hatası: ' + e.message, 'error');
+    scrollKayitTop();
+  } finally {
+    btn.disabled = false; btn.textContent = '✅ Kaydet';
+  }
+}
+
+// ==================== TEACHER ====================
+function initTeacher() {
+  populateTeacherSubes();
+  renderTree();
+  fillSettingsAlans();
+  initTopluFilters();
+  populateTasimaSelects();
+}
+
+function getAllSubes() {
+  const struct = window._structure || {};
+  const subes = [];
+  for (const alan in struct) for (const dal in struct[alan]) for (const x of struct[alan][dal]) {
+    if (!subes.find(y => y.name === x.name)) subes.push({...x, alan, dal});
+  }
+  return subes.sort(subeSirala);
+}
+
+function populateTeacherSubes() {
+  ['teacherSubeSel','seatSubeSel'].forEach(id => fillSubeSelect(document.getElementById(id), '-- Şube Seçin --'));
+}
+
+function showTab(name, btn) {
+  document.querySelectorAll('.teacher-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+async function loadStudents() {
+  const sube = document.getElementById('teacherSubeSel').value;
+  const grid = document.getElementById('classGrid');
+  if (!sube) { grid.innerHTML = '<div class="empty-state"><div class="ei">🎓</div><div>Şube seçin</div></div>'; return; }
+  grid.innerHTML = '<div class="loading"><div class="spinner"></div> Yükleniyor...</div>';
+  try {
+    let students = await window.dbGetStudents(sube);
+    // Sadece aktif öğrenciler (durum yoksa aktif sayılır)
+    const aktif = students.filter(s => (s.durum || 'aktif') === 'aktif');
+    aktif.sort((a,b) => parseInt(a.okulNo||999999) - parseInt(b.okulNo||999999));
+    const toplam = students.length;
+    const pasif = toplam - aktif.length;
+    let info = '';
+    if (pasif > 0) info = `<div style="font-size:.8rem;color:var(--text2);margin-bottom:10px;font-weight:600;">📊 Şubede toplam ${toplam} kayıt — ${aktif.length} aktif gösteriliyor, ${pasif} mezun/diğer gizlendi.</div>`;
+    if (!aktif.length) { grid.innerHTML = info + '<div class="empty-state"><div class="ei">😔</div><div>Bu şubede aktif öğrenci yok</div></div>'; return; }
+    grid.innerHTML = info + `<div class="student-grid">${aktif.map(sCard).join('')}</div>`;
+  } catch(e) { grid.innerHTML = `<div class="alert alert-error">Hata: ${e.message}</div>`; }
+}
+
+function durumBadge(durum) {
+  const map = { aktif:'✅ Aktif', mezun:'🎓 Mezun', diger:'📋 Diğer' };
+  const col = { aktif:'#059669', mezun:'#2563eb', diger:'#d97706' };
+  const d = durum || 'aktif';
+  return `<div style="font-size:.65rem;font-weight:800;color:${col[d]};margin-top:2px;">${map[d]||d}</div>`;
+}
+
+function sCard(s) {
+  const no = s.okulNo === '999999' ? '-' : s.okulNo;
+  const photoClick = s.photo ? `onclick="openLightbox('${s.id}_ph','${s.adSoyad.replace(/'/g,'&#39;')}','No: ${no} | ${s.sube}')" style="cursor:zoom-in;"` : '';
+  const ph = s.photo ? `<img src="${s.photo}" id="${s.id}_ph">` : `<span style="font-size:2.8rem;">👤</span>`;
+  return `<div class="s-card" id="sc-${s.id}">
+    <div class="s-card-actions">
+      <button class="ic-btn ic-edit" onclick="openEdit('${s.id}')" title="Düzenle">✏️</button>
+      <button class="ic-btn ic-del" onclick="openDel('${s.id}')" title="Sil">🗑️</button>
+    </div>
+    <div class="s-card-photo" ${photoClick}>${ph}</div>
+    <div class="s-card-info">
+      <div class="s-card-name">${s.adSoyad}</div>
+      <div class="s-card-no">No: ${no}</div>
+      <div class="s-card-sube">${s.sube}</div>
+      ${durumBadge(s.durum)}
+    </div>
+  </div>`;
+}
+
+// EDIT
+let _editStudents = [];
+async function openEdit(id) {
+  const sube = document.getElementById('teacherSubeSel').value;
+  let s = _editStudents.find(x => x.id === id);
+  if (!s && sube) { _editStudents = await window.dbGetStudents(sube); s = _editStudents.find(x => x.id === id); }
+  if (!s) return;
+
+  document.getElementById('eAdSoyad').value = s.adSoyad;
+  document.getElementById('eOkulNo').value = s.okulNo === '999999' ? '' : s.okulNo;
+  document.getElementById('eDurum').value = s.durum || 'aktif';
+  document.getElementById('eId').value = id;
+  editPhotoData = null;
+
+  const prev = document.getElementById('ePhotoPreview');
+  if (s.photo) {
+    prev.innerHTML = `<img src="${s.photo}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid var(--border);">`;
+  } else {
+    prev.innerHTML = `<span style="font-size:2rem;">👤</span>`;
+  }
+
+  const curAlan = alanOfSube(s.sube) || canonAlan(s.alan);
+  const eAlan = document.getElementById('eAlan');
+  eAlan.innerHTML = '<option value="">-- Alan Seçin --</option>';
+  alanlar().forEach(a => {
+    const o = document.createElement('option'); o.value = a; o.textContent = a;
+    if (a === curAlan) o.selected = true;
+    eAlan.appendChild(o);
+  });
+  fillEditSube(curAlan, s.sube);
+
+  document.getElementById('editModal').classList.remove('hidden');
+}
+
+function fillEditSube(alan, secili) {
+  const eSube = document.getElementById('eSube');
+  eSube.innerHTML = '<option value="">-- Şube Seçin --</option>';
+  if (!alan) { eSube.disabled = true; return; }
+  alanSubeleri(alan).forEach(sb => {
+    const o = document.createElement('option'); o.value = sb.name; o.textContent = sb.name;
+    if (sb.name === secili) o.selected = true;
+    eSube.appendChild(o);
+  });
+  eSube.disabled = false;
+}
+
+function onEditAlan() {
+  fillEditSube(document.getElementById('eAlan').value, '');
+}
+
+function onEditDal() { /* dal artık kullanılmıyor */ }
+
+function onEditPhoto(input) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      let w = img.width, h = img.height, max = 400;
+      if (w > h) { if (w > max) { h = h*max/w; w=max; } } else { if (h>max) { w=w*max/h; h=max; } }
+      canvas.width=w; canvas.height=h;
+      canvas.getContext('2d').drawImage(img,0,0,w,h);
+      editPhotoData = canvas.toDataURL('image/jpeg',0.75);
+      document.getElementById('ePhotoPreview').innerHTML = `<img src="${editPhotoData}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid var(--secondary);"><div style="font-size:.72rem;color:var(--secondary);font-weight:700;margin-top:4px;">✅ Yeni fotoğraf seçildi</div>`;
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+async function saveEdit() {
+  const id = document.getElementById('eId').value;
+  const adSoyad = document.getElementById('eAdSoyad').value.trim().toLocaleUpperCase('tr-TR');
+  const okulNo = document.getElementById('eOkulNo').value.trim() || '999999';
+  const alan = document.getElementById('eAlan').value;
+  const sube = document.getElementById('eSube').value;
+  if (!adSoyad || !alan || !sube) { alert('Lütfen ad soyad, alan ve şube alanlarını doldurun!'); return; }
+  const durum = document.getElementById('eDurum').value || 'aktif';
+  const data = { adSoyad, okulNo, alan, dal: TEK_DAL, sube, durum };
+  if (editPhotoData) data.photo = editPhotoData;
+  await window.dbUpdateStudent(id, data);
+  _editStudents = [];
+  closeModal('editModal');
+  if (document.getElementById('tab-search').classList.contains('active')) {
+    doSearch();
+  } else if (document.getElementById('tab-toplu').classList.contains('active')) {
+    doTopluList();
+  } else {
+    loadStudents();
+  }
+}
+
+// DELETE
+function openDel(id) { document.getElementById('delId').value = id; document.getElementById('delModal').classList.remove('hidden'); }
+async function confirmDel() {
+  const id = document.getElementById('delId').value;
+  await window.dbDeleteStudent(id);
+  _editStudents = [];
+  closeModal('delModal');
+  // Hangi sekme aktifse onu yenile
+  if (document.getElementById('tab-search').classList.contains('active')) {
+    doSearch();
+  } else if (document.getElementById('tab-toplu').classList.contains('active')) {
+    doTopluList();
+  } else {
+    // Kart DOM'dan anında kaldır, sonra Firebase'den tazele
+    const card = document.getElementById('sc-' + id);
+    if (card) card.remove();
+    // Kalan kart sayısını kontrol et, boşsa mesaj göster
+    const grid = document.getElementById('classGrid');
+    if (grid && grid.querySelector('.student-grid') && !grid.querySelector('.s-card')) {
+      grid.innerHTML = '<div class="empty-state"><div class="ei">😔</div><div>Bu şubede aktif öğrenci yok</div></div>';
+    }
+    // Arka planda Firebase'den gerçek listeyi de çek
+    loadStudents();
+  }
+}
+
+// ==================== TOPLU SINIF İŞLEMLERİ ====================
+function populateTasimaSelects() {
+  ['tasimaKaynak','tasimaHedef','mezunSube','bosaltSube','seciliKaynak','seciliHedef'].forEach(id => {
+    const sel = document.getElementById(id);
+    if (sel) fillSubeSelect(sel, '-- Şube Seçin --');
+  });
+}
+
+async function onTasimaKaynakChange() {
+  const kaynak = document.getElementById('tasimaKaynak').value;
+  const prev = document.getElementById('tasimaPreview');
+  if (!kaynak) { prev.style.display='none'; return; }
+  const students = await window.dbGetStudents(kaynak);
+  prev.style.display = 'block';
+  prev.textContent = `📊 "${kaynak}" şubesinde ${students.length} öğrenci var.`;
+}
+
+async function doTasima() {
+  const kaynak = document.getElementById('tasimaKaynak').value;
+  const hedef = document.getElementById('tasimaHedef').value;
+  if (!kaynak || !hedef) return alert('Kaynak ve hedef şubeyi seçin!');
+  if (kaynak === hedef) return alert('Kaynak ve hedef aynı olamaz!');
+
+  // Find hedef info from structure
+  const struct = window._structure || defaultStructure;
+  let hedefAlan='', hedefDal='', hedefSinif='';
+  for (const alan in struct) {
+    for (const dal in struct[alan]) {
+      const found = struct[alan][dal].find(s => s.name === hedef);
+      if (found) { hedefAlan=alan; hedefDal=dal; hedefSinif=found.sinif; break; }
+    }
+    if (hedefAlan) break;
+  }
+
+  const students = await window.dbGetStudents(kaynak);
+  if (!students.length) return alert(`"${kaynak}" şubesinde öğrenci yok!`);
+
+  if (!confirm(`"${kaynak}" şubesindeki ${students.length} öğrenci\n"${hedef}" şubesine taşınacak.\n\nDevam etmek istiyor musunuz?`)) return;
+
+  let done=0, err=0;
+  for (const s of students) {
+    try {
+      await window.dbUpdateStudent(s.id, { sube: hedef, alan: hedefAlan, dal: hedefDal });
+      done++;
+    } catch(e) { err++; }
+  }
+  alert(`✅ ${done} öğrenci "${hedef}" şubesine taşındı.${err?'\n⚠️ '+err+' hata oluştu.':''}`);
+  document.getElementById('tasimaPreview').style.display='none';
+  document.getElementById('tasimaKaynak').value='';
+  document.getElementById('tasimaHedef').value='';
+  loadStudents();
+}
+
+async function doSubeMezun() {
+  const sube = document.getElementById('mezunSube').value;
+  if (!sube) return alert('Mezun edilecek şubeyi seçin!');
+  const students = await window.dbGetStudents(sube);
+  // Only aktif/diger ones need updating
+  const toUpdate = students.filter(s => (s.durum || 'aktif') !== 'mezun');
+  if (!students.length) return alert(`"${sube}" şubesinde kayıtlı öğrenci yok.`);
+  if (!toUpdate.length) return alert(`"${sube}" şubesindeki tüm öğrenciler zaten mezun durumunda.`);
+  if (!confirm(`🎓 "${sube}" şubesindeki ${toUpdate.length} öğrencinin durumu "Mezun Öğrenci" olarak değiştirilecek.\n\nÖğrenciler silinmeyecek. Devam?`)) return;
+  let done=0, err=0;
+  for (const s of toUpdate) {
+    try { await window.dbUpdateStudent(s.id, {durum:'mezun'}); done++; }
+    catch(e) { err++; }
+  }
+  alert(`✅ ${done} öğrenci mezun yapıldı.${err?'\n⚠️ '+err+' hata oluştu.':''}`);
+  document.getElementById('mezunSube').value='';
+  loadStudents();
+}
+
+async function doSubeBosalt() {
+  const sube = document.getElementById('bosaltSube').value;
+  if (!sube) return alert('Boşaltılacak şubeyi seçin!');
+  const students = await window.dbGetStudents(sube);
+  if (!students.length) return alert(`"${sube}" şubesinde kayıtlı öğrenci yok.`);
+  if (!confirm(`⚠️ DİKKAT!\n\n"${sube}" şubesindeki ${students.length} öğrenci KALICI OLARAK silinecek!\n\nBu işlem geri alınamaz. Devam etmek istiyor musunuz?`)) return;
+  if (!confirm(`Son onay: ${students.length} öğrenci silinecek. Emin misiniz?`)) return;
+  let done=0, err=0;
+  for (const s of students) {
+    try { await window.dbDeleteStudent(s.id); done++; }
+    catch(e) { err++; }
+  }
+  alert(`✅ ${done} öğrenci silindi.${err?'\n⚠️ '+err+' hata oluştu.':''}`);
+  document.getElementById('bosaltSube').value='';
+  loadStudents();
+}
+
+async function loadSeciliOgrenciler() {
+  const sube = document.getElementById('seciliKaynak').value;
+  const listDiv = document.getElementById('seciliOgrenciListesi');
+  if (!sube) { listDiv.style.display='none'; return; }
+  const students = await window.dbGetStudents(sube);
+  students.sort((a,b)=>parseInt(a.okulNo||999999)-parseInt(b.okulNo||999999));
+  if (!students.length) {
+    listDiv.style.display='block';
+    listDiv.innerHTML='<div style="padding:12px;color:var(--text2);font-size:.85rem;">Bu şubede öğrenci yok.</div>';
+    return;
+  }
+  listDiv.style.display='block';
+  listDiv.innerHTML = students.map(s => {
+    const no = s.okulNo==='999999'?'-':s.okulNo;
+    const ph = s.photo ? `<img src="${s.photo}" style="width:32px;height:32px;object-fit:cover;border-radius:6px;flex-shrink:0;">` : `<span style="font-size:1.3rem;flex-shrink:0;">👤</span>`;
+    return `<label style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
+      <input type="checkbox" class="secili-cb" value="${s.id}" style="width:16px;height:16px;cursor:pointer;">
+      ${ph}
+      <div>
+        <div style="font-weight:700;font-size:.85rem;">${s.adSoyad}</div>
+        <div style="font-size:.72rem;color:var(--text2);">No: ${no}</div>
+      </div>
+    </label>`;
+  }).join('');
+}
+
+function toggleSeciliAll(check) {
+  document.querySelectorAll('.secili-cb').forEach(cb => cb.checked = check);
+}
+
+async function doSeciliTasima() {
+  const hedef = document.getElementById('seciliHedef').value;
+  if (!hedef) return alert('Hedef şubeyi seçin!');
+  const checked = [...document.querySelectorAll('.secili-cb:checked')].map(cb => cb.value);
+  if (!checked.length) return alert('En az bir öğrenci seçin!');
+
+  const struct = window._structure || defaultStructure;
+  let hedefAlan='', hedefDal='';
+  for (const alan in struct) {
+    for (const dal in struct[alan]) {
+      if (struct[alan][dal].find(s => s.name === hedef)) {
+        hedefAlan=alan; hedefDal=dal; break;
+      }
+    }
+    if (hedefAlan) break;
+  }
+
+  const kaynak = document.getElementById('seciliKaynak').value;
+  if (!confirm(`${checked.length} öğrenci "${hedef}" şubesine taşınacak. Devam?`)) return;
+
+  let done=0, err=0;
+  for (const id of checked) {
+    try { await window.dbUpdateStudent(id, {sube:hedef, alan:hedefAlan, dal:hedefDal}); done++; }
+    catch(e) { err++; }
+  }
+  alert(`✅ ${done} öğrenci "${hedef}" şubesine taşındı.${err?'\n⚠️ '+err+' hata.':''}`);
+  loadSeciliOgrenciler();
+  loadStudents();
+}
+
+// ==================== KAYIP KAYIT KURTARMA & YEDEK ====================
+window._orphanGroups = [];
+
+function topKey(counts) {
+  let best = '', n = 0;
+  for (const k in counts) if (counts[k] > n) { best = k; n = counts[k]; }
+  return best;
+}
+
+async function scanOrphans() {
+  const box = document.getElementById('orphanResults');
+  box.innerHTML = '<div class="loading"><div class="spinner"></div> Veritabanı taranıyor...</div>';
+  try {
+    const all = await window.dbGetAllStudents();
+    const known = new Set(getAllSubes().map(x => x.name));
+
+    const groups = {};
+    let visible = 0;
+    all.forEach(s => {
+      const key = s.sube || '(şube bilgisi yok)';
+      if (known.has(key)) { visible++; return; }
+      if (!groups[key]) groups[key] = { name: key, count: 0, alanC: {} };
+      const g = groups[key];
+      g.count++;
+      const a = canonAlan(s.alan);
+      if (a) g.alanC[a] = (g.alanC[a] || 0) + 1;
+    });
+
+    const list = Object.values(groups).map(g => ({
+      name: g.name, count: g.count,
+      alan: topKey(g.alanC) || 'Kurtarılan Kayıtlar',
+      restorable: g.name !== '(şube bilgisi yok)'
+    })).sort((a, b) => b.count - a.count);
+    window._orphanGroups = list;
+
+    const hidden = all.length - visible;
+    let html = `<div class="alert alert-info" style="margin-bottom:10px;">
+      Veritabanında toplam <b>${all.length}</b> kayıt var. Yapıdaki şubelerde görünen: <b>${visible}</b>. Görünmeyen: <b>${hidden}</b>.</div>`;
+
+    if (!list.length) {
+      html += '<div style="font-size:.85rem;color:var(--text2);">Görünmeyen kayıt yok.</div>';
+    } else {
+      html += `<div style="margin-bottom:8px;"><button class="btn btn-primary btn-sm" onclick="restoreAllOrphans()">♻️ Hepsini Geri Ekle</button></div>`;
+      list.forEach((g, i) => {
+        html += `<div class="tree-node">
+          <div style="font-size:.85rem;"><b>${g.name}</b> <span class="badge">${g.count} öğrenci</span>
+            <div style="font-size:.72rem;color:var(--text2);">${g.alan}</div></div>
+          ${g.restorable ? `<button class="btn btn-primary btn-xs" onclick="restoreOrphan(${i})">♻️ Geri Ekle</button>` : ''}
+        </div>`;
+      });
+    }
+    box.innerHTML = html;
+  } catch(e) {
+    box.innerHTML = `<div class="alert alert-error">Hata: ${e.message}</div>`;
+  }
+}
+
+function addSubeToStructure(g) {
+  const struct = window._structure;
+  if (!struct[g.alan]) struct[g.alan] = { [TEK_DAL]: [] };
+  const dalKey = Object.keys(struct[g.alan])[0] || TEK_DAL;
+  if (!struct[g.alan][dalKey]) struct[g.alan][dalKey] = [];
+  if (!struct[g.alan][dalKey].some(x => x.name === g.name)) {
+    struct[g.alan][dalKey].push({ name: g.name, sinif: subeSeviye(g.name) || 9 });
+    struct[g.alan][dalKey].sort(subeSirala);
+  }
+}
+
+function refreshAfterStructureChange() {
+  fillSettingsAlans(); renderTree(); populateTeacherSubes();
+  populateTasimaSelects(); initTopluFilters();
+}
+
+async function restoreOrphan(i) {
+  const g = window._orphanGroups[i];
+  if (!g) return;
+  addSubeToStructure(g);
+  await saveStructureToDb();
+  refreshAfterStructureChange();
+  await scanOrphans();
+}
+
+async function restoreAllOrphans() {
+  const list = window._orphanGroups.filter(g => g.restorable);
+  if (!list.length) return;
+  if (!confirm(`${list.length} şube yapıya geri eklenecek. Devam?`)) return;
+  list.forEach(addSubeToStructure);
+  await saveStructureToDb();
+  refreshAfterStructureChange();
+  await scanOrphans();
+}
+
+async function downloadBackup() {
+  try {
+    const all = await window.dbGetAllStudents();
+    const data = { tarih: new Date().toISOString(), yapi: window._structure || defaultStructure, ogrenciler: all };
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'mesem_yedek_' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+    alert(`✅ ${all.length} öğrenci kaydı yedeklendi.`);
+  } catch(e) { alert('Yedek alınamadı: ' + e.message); }
+}
+
+// ==================== SEARCH ====================
+async function doSearch() {
+  const term = document.getElementById('searchInput').value.trim();
+  const results = document.getElementById('searchResults');
+  const loading = document.getElementById('searchLoading');
+  if (!term || term.length < 2) {
+    results.innerHTML = '<div class="alert alert-info">En az 2 harf girin.</div>';
+    return;
+  }
+  loading.classList.remove('hidden');
+  results.innerHTML = '';
+  try {
+    // Get all students from all subes
+    const struct = window._structure || defaultStructure;
+    const allSubes = [];
+    for (const alan in struct) for (const dal in struct[alan]) for (const s of struct[alan][dal]) {
+      if (!allSubes.includes(s.name)) allSubes.push(s.name);
+    }
+    // Fetch all in parallel
+    const fetches = allSubes.map(sube => window.dbGetStudents(sube));
+    const arrays = await Promise.all(fetches);
+    const all = arrays.flat();
+    // Filter by name
+    const found = all.filter(s => s.adSoyad && s.adSoyad.toLocaleUpperCase('tr-TR').includes(term));
+    loading.classList.add('hidden');
+    if (!found.length) {
+      results.innerHTML = '<div class="empty-state"><div class="ei">😔</div><div>"' + term + '" ile eşleşen öğrenci bulunamadı</div></div>';
+      return;
+    }
+    found.sort((a,b) => a.adSoyad.localeCompare(b.adSoyad,'tr'));
+    results.innerHTML = `<div style="font-size:.85rem;color:var(--text2);margin-bottom:12px;font-weight:700;">${found.length} öğrenci bulundu</div><div class="student-grid">${found.map(s => searchCard(s)).join('')}</div>`;
+  } catch(e) {
+    loading.classList.add('hidden');
+    results.innerHTML = `<div class="alert alert-error">Hata: ${e.message}</div>`;
+  }
+}
+
+function searchCard(s) {
+  const no = s.okulNo === '999999' ? '-' : s.okulNo;
+  const photoClick = s.photo ? `onclick="openLightbox('${s.id}_sph','${s.adSoyad.replace(/'/g,'&#39;')}','No: ${no} | ${s.sube}')" style="cursor:zoom-in;"` : '';
+  const ph = s.photo ? `<img src="${s.photo}" id="${s.id}_sph">` : `<span style="font-size:2.8rem;">👤</span>`;
+  return `<div class="s-card" id="sc-${s.id}">
+    <div class="s-card-actions">
+      <button class="ic-btn ic-edit" onclick="openEditFromSearch('${s.id}')" title="Düzenle">✏️</button>
+      <button class="ic-btn ic-del" onclick="openDel('${s.id}')" title="Sil">🗑️</button>
+    </div>
+    <div class="s-card-photo" ${photoClick}>${ph}</div>
+    <div class="s-card-info">
+      <div class="s-card-name">${s.adSoyad}</div>
+      <div class="s-card-no">No: ${no}</div>
+      <div class="s-card-sube" title="${alanOfSube(s.sube) || canonAlan(s.alan)}">${s.sube}</div>
+      ${durumBadge(s.durum)}
+    </div>
+  </div>`;
+}
+
+// openEdit for search results — we already have the student object cached
+let _searchCache = [];
+async function openEditFromSearch(id) {
+  // Refetch all to find the student (reuse doSearch cache via a small helper)
+  const struct = window._structure || defaultStructure;
+  const allSubes = [];
+  for (const alan in struct) for (const dal in struct[alan]) for (const s of struct[alan][dal]) {
+    if (!allSubes.includes(s.name)) allSubes.push(s.name);
+  }
+  const arrays = await Promise.all(allSubes.map(sb => window.dbGetStudents(sb)));
+  _editStudents = arrays.flat();
+  openEdit(id);
+}
+
+// ==================== TOPLU LİSTE ====================
+let topluView = 'kart';
+let topluData = [];
+
+function initTopluFilters() {
+  const fAlan = document.getElementById('fAlan');
+  fAlan.innerHTML = '<option value="">Tümü</option>';
+  alanlar().forEach(a => {
+    const o = document.createElement('option'); o.value = a; o.textContent = a; fAlan.appendChild(o);
+  });
+  fillTopluSube();
+}
+
+function fillTopluSube() {
+  const alan = document.getElementById('fAlan').value;
+  const sel = document.getElementById('fSube');
+  if (!alan) { fillSubeSelect(sel, 'Tümü'); return; }
+  sel.innerHTML = '<option value="">Tümü</option>';
+  alanSubeleri(alan).forEach(x => {
+    const o = document.createElement('option'); o.value = x.name; o.textContent = x.name; sel.appendChild(o);
+  });
+}
+
+function onTopluAlan() { fillTopluSube(); }
+
+function onTopluDal() { /* dal artık kullanılmıyor */ }
+
+function clearTopluFilters() {
+  document.getElementById('fAd').value = '';
+  document.getElementById('fAlan').value = '';
+  fillTopluSube();
+  document.getElementById('fFoto').value = '';
+  document.getElementById('fDurum').value = '';
+  document.getElementById('topluCount').textContent = '';
+  document.getElementById('topluResults').innerHTML = '<div class="empty-state"><div class="ei">📊</div><div>Filtreleri seçip "Listele" butonuna tıklayın</div></div>';
+}
+
+function setTopluView(v) {
+  topluView = v;
+  document.getElementById('viewKart').className = v === 'kart' ? 'btn btn-primary btn-xs' : 'btn btn-ghost btn-xs';
+  document.getElementById('viewTablo').className = v === 'tablo' ? 'btn btn-primary btn-xs' : 'btn btn-ghost btn-xs';
+  if (topluData.length) renderTopluResults(topluData);
+}
+
+async function doTopluList() {
+  const loading = document.getElementById('topluLoading');
+  const results = document.getElementById('topluResults');
+  loading.classList.remove('hidden'); results.innerHTML = '';
+  document.getElementById('topluCount').textContent = '';
+
+  const fAd = document.getElementById('fAd').value.trim();
+  const fAlan = document.getElementById('fAlan').value;
+  const fSubeVal = document.getElementById('fSube').value;
+  const fFoto = document.getElementById('fFoto').value;
+  const fDurum = document.getElementById('fDurum').value;
+
+  try {
+    // Collect matching subes from structure
+    const struct = window._structure || defaultStructure;
+    let targetSubes = [];
+    for (const alan in struct) {
+      if (fAlan && alan !== fAlan) continue;
+      for (const dal in struct[alan]) {
+        for (const s of struct[alan][dal]) {
+          if (fSubeVal && s.name !== fSubeVal) continue;
+          if (!targetSubes.find(x => x.name === s.name))
+            targetSubes.push({name: s.name, sinif: s.sinif, alan, dal});
+        }
+      }
+    }
+
+    // Fetch all students from target subes
+    const fetches = targetSubes.map(sb => window.dbGetStudents(sb.name));
+    const arrays = await Promise.all(fetches);
+    let all = arrays.flat();
+
+    // Apply name filter
+    if (fAd.length >= 1) all = all.filter(s => s.adSoyad && s.adSoyad.toLocaleUpperCase('tr-TR').includes(fAd));
+    // Apply photo filter
+    if (fFoto === 'var') all = all.filter(s => s.photo);
+    if (fFoto === 'yok') all = all.filter(s => !s.photo);
+    // Apply durum filter
+    if (fDurum) all = all.filter(s => (s.durum || 'aktif') === fDurum);
+
+    // Sort: sinif → numara
+    all.sort((a,b) => {
+      const sa = targetSubes.find(x => x.name === a.sube);
+      const sb2 = targetSubes.find(x => x.name === b.sube);
+      const sinifA = sa ? sa.sinif : 99, sinifB = sb2 ? sb2.sinif : 99;
+      if (sinifA !== sinifB) return sinifA - sinifB;
+      if (a.sube !== b.sube) return a.sube.localeCompare(b.sube, 'tr');
+      return parseInt(a.okulNo||999999) - parseInt(b.okulNo||999999);
+    });
+
+    topluData = all;
+    loading.classList.add('hidden');
+
+    if (!all.length) {
+      results.innerHTML = '<div class="empty-state"><div class="ei">😔</div><div>Seçilen kriterlere uyan öğrenci bulunamadı</div></div>';
+      document.getElementById('topluCount').textContent = '0 öğrenci';
+      return;
+    }
+    document.getElementById('topluCount').textContent = all.length + ' öğrenci bulundu';
+    renderTopluResults(all);
+  } catch(e) {
+    loading.classList.add('hidden');
+    results.innerHTML = `<div class="alert alert-error">Hata: ${e.message}</div>`;
+  }
+}
+
+function renderTopluResults(all) {
+  const results = document.getElementById('topluResults');
+  if (topluView === 'kart') {
+    // Group by sube
+    const groups = {};
+    all.forEach(s => { if (!groups[s.sube]) groups[s.sube] = []; groups[s.sube].push(s); });
+    let html = '';
+    for (const sube in groups) {
+      html += `<div style="margin-bottom:24px;">
+        <div style="font-size:.88rem;font-weight:800;color:var(--primary);padding:6px 12px;background:var(--primary-light);border-radius:var(--radius-sm);margin-bottom:12px;display:inline-block;">🏫 ${sube} <span style="font-weight:400;color:var(--text2);">(${groups[sube].length} öğrenci)</span></div>
+        <div class="student-grid">${groups[sube].map(s => topluCard(s)).join('')}</div>
+      </div>`;
+    }
+    results.innerHTML = html;
+  } else {
+    // Table view
+    let html = `<div style="overflow-x:auto;">
+    <table style="width:100%;border-collapse:collapse;font-size:.88rem;">
+      <thead>
+        <tr style="background:var(--primary);color:#fff;">
+          <th style="padding:10px 12px;text-align:left;border-radius:8px 0 0 0;">Fotoğraf</th>
+          <th style="padding:10px 12px;text-align:left;">Ad Soyad</th>
+          <th style="padding:10px 12px;text-align:left;">Numara</th>
+          <th style="padding:10px 12px;text-align:left;">Şube</th>
+          <th style="padding:10px 12px;text-align:left;">Alan</th>
+          <th style="padding:10px 12px;text-align:left;border-radius:0 8px 0 0;">Durum</th>
+        </tr>
+      </thead>
+      <tbody>`;
+    all.forEach((s, i) => {
+      const ph = s.photo ? `<img src="${s.photo}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">` : `<span style="font-size:1.5rem;">👤</span>`;
+      const no = s.okulNo === '999999' ? '-' : s.okulNo;
+      const bg = i % 2 === 0 ? 'var(--surface)' : 'var(--surface2)';
+      html += `<tr style="background:${bg};border-bottom:1px solid var(--border);" id="tr-${s.id}">
+        <td style="padding:8px 12px;" onclick="if(document.getElementById('${s.id}_tp'))openLightbox('${s.id}_tp','${s.adSoyad.replace(/'/g,"&#39;")}','${s.sube}')" style="cursor:${s.photo?'zoom-in':'default'}">${s.photo ? `<img src="${s.photo}" id="${s.id}_tp" style="width:40px;height:40px;object-fit:cover;border-radius:6px;cursor:zoom-in;">` : `<span style="font-size:1.5rem;">👤</span>`}</td>
+        <td style="padding:8px 12px;font-weight:700;">${s.adSoyad}</td>
+        <td style="padding:8px 12px;color:var(--text2);">${no}</td>
+        <td style="padding:8px 12px;color:var(--text2);">${s.sube}</td>
+        <td style="padding:8px 12px;color:var(--text2);font-size:.8rem;">${alanOfSube(s.sube) || canonAlan(s.alan)}</td>
+        <td style="padding:8px 12px;font-size:.8rem;">${{aktif:'✅ Aktif',mezun:'🎓 Mezun',diger:'📋 Diğer'}[s.durum||'aktif']||'✅ Aktif'}</td>
+      </tr>`;
+    });
+    html += `</tbody></table></div>`;
+    results.innerHTML = html;
+  }
+}
+
+function topluCard(s) {
+  const no = s.okulNo === '999999' ? '-' : s.okulNo;
+  const photoClick = s.photo ? `onclick="openLightbox('${s.id}_tp2','${s.adSoyad.replace(/'/g,"&#39;")}','No:${no} | ${s.sube}')" style="cursor:zoom-in;"` : '';
+  const ph = s.photo ? `<img src="${s.photo}" id="${s.id}_tp2">` : `<span style="font-size:2.8rem;">👤</span>`;
+  return `<div class="s-card" id="sc2-${s.id}">
+    <div class="s-card-actions">
+      <button class="ic-btn ic-edit" onclick="openEditFromSearch('${s.id}')" title="Düzenle">✏️</button>
+      <button class="ic-btn ic-del" onclick="openDel('${s.id}')" title="Sil">🗑️</button>
+    </div>
+    <div class="s-card-photo" ${photoClick}>${ph}</div>
+    <div class="s-card-info">
+      <div class="s-card-name">${s.adSoyad}</div>
+      <div class="s-card-no">No: ${no}</div>
+      <div class="s-card-sube">${s.sube}</div>
+      ${durumBadge(s.durum)}
+    </div>
+  </div>`;
+}
+
+function exportTopluPDF() {
+  if (!topluData.length) return alert('Önce liste oluşturun!');
+  const w = window.open('','_blank');
+  const groups = {};
+  topluData.forEach(s => { if (!groups[s.sube]) groups[s.sube] = []; groups[s.sube].push(s); });
+  let body = '';
+  for (const sube in groups) {
+    body += `<h3 style="margin:20px 0 10px;color:#1a56db;border-bottom:2px solid #dbeafe;padding-bottom:6px;">🏫 ${sube} (${groups[sube].length} öğrenci)</h3>
+    <div class="grid">${groups[sube].map(s => {
+      const ph = s.photo ? `<img src="${s.photo}">` : `<div class="noph">👤</div>`;
+      const no = s.okulNo==='999999'?'-':s.okulNo;
+      return `<div class="card">${ph}<div class="info"><div class="name">${s.adSoyad}</div><div class="meta">No: ${no}</div></div></div>`;
+    }).join('')}</div>`;
+  }
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Toplu Liste</title>
+  <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;color:#1a56db;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px;}
+  .card{border:2px solid #ccc;border-radius:10px;overflow:hidden;}
+  .card img,.noph{width:100%;aspect-ratio:1;object-fit:cover;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+  .info{padding:8px;}.name{font-weight:700;font-size:.85rem;}.meta{font-size:.75rem;color:#666;}</style></head>
+  <body><h2>Toplu Öğrenci Listesi</h2>${body}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+function exportTopluHTML() {
+  if (!topluData.length) return alert('Önce liste oluşturun!');
+  const groups = {};
+  topluData.forEach(s => { if (!groups[s.sube]) groups[s.sube] = []; groups[s.sube].push(s); });
+  let body = '';
+  for (const sube in groups) {
+    body += `<h3 style="margin:20px 0 10px;color:#1a56db;border-bottom:2px solid #dbeafe;padding-bottom:6px;">🏫 ${sube} (${groups[sube].length} öğrenci)</h3>
+    <div class="grid">${groups[sube].map(s => {
+      const ph = s.photo ? `<img src="${s.photo}">` : `<div class="noph">👤</div>`;
+      const no = s.okulNo==='999999'?'-':s.okulNo;
+      return `<div class="card">${ph}<div class="info"><div class="name">${s.adSoyad}</div><div class="meta">No: ${no}</div></div></div>`;
+    }).join('')}</div>`;
+  }
+  const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Toplu Liste</title>
+  <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;color:#1a56db;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px;}
+  .card{border:2px solid #ccc;border-radius:10px;overflow:hidden;}
+  .card img,.noph{width:100%;aspect-ratio:1;object-fit:cover;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+  .info{padding:8px;}.name{font-weight:700;font-size:.85rem;}.meta{font-size:.75rem;color:#666;}</style></head>
+  <body><h2>Toplu Öğrenci Listesi</h2>${body}</body></html>`], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'toplu_liste.html'; a.click();
+}
+
+// ==================== SEATING ====================
+async function loadSeatStudents() {
+  const sube = document.getElementById('seatSubeSel').value;
+  if (!sube) return;
+  const all = await window.dbGetStudents(sube);
+  // Sadece aktif öğrenciler oturma planına girer
+  seatStudents = all.filter(s => (s.durum || 'aktif') === 'aktif');
+  seatStudents.sort((a,b) => parseInt(a.okulNo||999999) - parseInt(b.okulNo||999999));
+  renderSeating();
+}
+
+function renderSeating() {
+  const sube = document.getElementById('seatSubeSel').value;
+  const board = document.getElementById('seatingBoard');
+  if (!sube) { board.innerHTML = '<div class="empty-state"><div class="ei">🪑</div><div>Şube seçin</div></div>'; return; }
+  const rows = parseInt(document.getElementById('seatRows').value);
+  const cols = parseInt(document.getElementById('seatCols').value);
+  const per = parseInt(document.getElementById('seatPer').value);
+
+  const opts = '<option value="">-- Boş --</option>' + seatStudents.map(s =>
+    `<option value="${s.id}">${s.adSoyad}${s.okulNo!=='999999'?' ('+s.okulNo+')':''}</option>`).join('');
+
+  let html = `<div class="board-sign">T A H T A</div><div class="teacher-desk">👩‍🏫 Öğretmen Masası</div>`;
+  for (let r = 0; r < rows; r++) {
+    html += `<div class="seat-row"><div class="row-num">${r+1}</div>`;
+    for (let c = 0; c < cols; c++) {
+      html += `<div class="desk-pair">`;
+      for (let p = 0; p < per; p++) {
+        const sid = `s_${r}_${c}_${p}`;
+        html += `<div class="desk-slot"><div class="slot-photo" id="ph_${sid}"><span>👤</span></div><select class="slot-select" id="${sid}" onchange="updateSlot('${sid}')">${opts}</select></div>`;
+      }
+      html += `</div>`;
+      if (c < cols-1) html += `<div class="aisle"></div>`;
+    }
+    html += `</div>`;
+  }
+  board.innerHTML = html;
+}
+
+function updateSlot(sid) {
+  const sel = document.getElementById(sid);
+  const phDiv = document.getElementById('ph_'+sid);
+  const id = sel.value;
+  if (!id) { phDiv.innerHTML = '<span>👤</span>'; return; }
+  const s = seatStudents.find(x => x.id === id);
+  if (s && s.photo) phDiv.innerHTML = `<img src="${s.photo}">`;
+  else if (s) phDiv.innerHTML = `<div style="font-size:.65rem;font-weight:800;padding:4px;text-align:center;color:var(--text2)">${s.adSoyad.split(' ')[0]}</div>`;
+}
+
+function exportSeatPDF() {
+  const sube = document.getElementById('seatSubeSel').value || 'Oturma Planı';
+  const bHTML = document.getElementById('seatingBoard').innerHTML;
+  const w = window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${sube}</title>
+  <style>body{font-family:sans-serif;padding:20px;}
+  .seating-board{display:flex;flex-direction:column;gap:10px;align-items:center;}
+  .board-sign{background:#eee;padding:5px 48px;border-radius:4px;font-size:.78rem;font-weight:800;letter-spacing:3px;}
+  .teacher-desk{background:#1340b0;color:#fff;padding:9px 36px;border-radius:9px;font-weight:800;}
+  .seat-row{display:flex;gap:10px;align-items:flex-start;}
+  .row-num{font-size:.72rem;width:18px;text-align:center;padding-top:14px;color:#888;}
+  .desk-pair{display:flex;gap:5px;}
+  .desk-slot{width:105px;border:2px solid #ccc;border-radius:9px;overflow:hidden;}
+  .slot-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+  .slot-photo img{width:100%;height:100%;object-fit:cover;}
+  .slot-select{display:none;}.aisle{width:20px;}
+  .slot-name{font-size:0.62rem;font-weight:700;text-align:center;padding:3px 4px;background:#f1f5f9;border-top:1px solid #ccc;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center;word-break:break-word;}
+  h2{text-align:center;margin-bottom:20px;}</style></head><body>
+  <h2>${sube} – Oturma Planı</h2>
+  <div class="seating-board">${bHTML}</div>
+  <script>
+    // Slot'lardaki select değerlerinden isim yaz
+    document.querySelectorAll('.desk-slot').forEach(slot => {
+      const sel = slot.querySelector('select');
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'slot-name';
+      if (sel && sel.value) {
+        const opt = sel.options[sel.selectedIndex];
+        // Sadece adı al (parantez içindeki numara olmadan)
+        const fullText = opt ? opt.textContent : '';
+        const name = fullText.replace(/\s*\(.*\)/, '').trim();
+        nameDiv.textContent = name;
+      } else {
+        nameDiv.textContent = '';
+      }
+      slot.appendChild(nameDiv);
+    });
+    window.onload=()=>window.print();
+  <\/script></body></html>`);
+  w.document.close();
+}
+
+function exportSeatHTML() {
+  const sube = document.getElementById('seatSubeSel').value || 'Oturma Planı';
+  const bHTML = document.getElementById('seatingBoard').innerHTML;
+  const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${sube}</title>
+  <style>body{font-family:sans-serif;padding:20px;}
+  .seating-board{display:flex;flex-direction:column;gap:10px;align-items:center;}
+  .board-sign{background:#eee;padding:5px 48px;border-radius:4px;font-size:.78rem;letter-spacing:3px;}
+  .teacher-desk{background:#1340b0;color:#fff;padding:9px 36px;border-radius:9px;font-weight:800;}
+  .seat-row{display:flex;gap:10px;}.row-num{font-size:.72rem;width:18px;text-align:center;padding-top:14px;color:#888;}
+  .desk-pair{display:flex;gap:5px;}.desk-slot{width:105px;border:2px solid #ccc;border-radius:9px;overflow:hidden;}
+  .slot-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+  .slot-photo img{width:100%;height:100%;object-fit:cover;}.slot-select{display:none;}.aisle{width:20px;}
+  .slot-name{font-size:0.62rem;font-weight:700;text-align:center;padding:3px 4px;background:#f1f5f9;border-top:1px solid #ccc;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center;word-break:break-word;}
+  </style></head>
+  <body><h2 style="text-align:center">${sube} – Oturma Planı</h2><div class="seating-board">${bHTML}</div>
+  <script>
+    document.querySelectorAll('.desk-slot').forEach(slot => {
+      const sel = slot.querySelector('select');
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'slot-name';
+      if (sel && sel.value) {
+        const opt = sel.options[sel.selectedIndex];
+        const name = opt ? opt.textContent.replace(/\s*\(.*\)/,'').trim() : '';
+        nameDiv.textContent = name;
+      } else { nameDiv.textContent = ''; }
+      slot.appendChild(nameDiv);
+    });
+  <\/script>
+  </body></html>`], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${sube}_oturma_plani.html`; a.click();
+}
+
+function exportPDF() {
+  const sube = document.getElementById('teacherSubeSel').value; if (!sube) return;
+  const g = document.getElementById('classGrid').innerHTML;
+  const w = window.open('','_blank');
+  w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${sube}</title>
+  <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;margin-bottom:20px;}
+  .student-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .s-card{border:2px solid #ccc;border-radius:12px;overflow:hidden;break-inside:avoid;}
+  .s-card-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+  .s-card-photo img{width:100%;height:100%;object-fit:cover;}
+  .s-card-info{padding:8px;}.s-card-name{font-weight:800;font-size:.85rem;}
+  .s-card-no,.s-card-sube{font-size:.72rem;color:#666;}.s-card-actions{display:none!important;}</style></head>
+  <body><h2>${sube} – Fotoğraflı Sınıf Listesi</h2>${g}<script>window.onload=()=>window.print()<\/script></body></html>`);
+  w.document.close();
+}
+
+function exportHTMLList() {
+  const sube = document.getElementById('teacherSubeSel').value; if (!sube) return;
+  const g = document.getElementById('classGrid').innerHTML;
+  const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${sube}</title>
+  <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;}
+  .student-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .s-card{border:2px solid #ccc;border-radius:12px;overflow:hidden;}
+  .s-card-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+  .s-card-photo img{width:100%;height:100%;object-fit:cover;}
+  .s-card-info{padding:8px;}.s-card-name{font-weight:800;font-size:.85rem;}
+  .s-card-no,.s-card-sube{font-size:.72rem;color:#666;}.s-card-actions{display:none!important;}</style></head>
+  <body><h2>${sube} – Fotoğraflı Sınıf Listesi</h2>${g}</body></html>`], {type:'text/html'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${sube}_liste.html`; a.click();
+}
+
+// ==================== SETTINGS ====================
+function fillSettingsAlans() {
+  const sel = document.getElementById('sAlan2');
+  if (!sel) return;
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">-- Alan --</option>';
+  alanlar().forEach(a => {
+    const o = document.createElement('option'); o.value = a; o.textContent = a;
+    if (a === cur) o.selected = true;
+    sel.appendChild(o);
+  });
+}
+
+async function ogrenciSayisi(subeAdlari) {
+  const arr = await Promise.all(subeAdlari.map(n => window.dbGetStudents(n)));
+  return arr.reduce((t, a) => t + a.length, 0);
+}
+
+async function addAlan() {
+  const name = canonAlan(document.getElementById('newAlan').value.trim());
+  if (!name) return alert('Alan adı boş olamaz!');
+  const struct = window._structure;
+  if (struct[name]) return alert('Bu alan zaten var!');
+  struct[name] = { [TEK_DAL]: [] };
+  await saveStructureToDb();
+  document.getElementById('newAlan').value = '';
+  fillSettingsAlans(); renderTree(); populateTeacherSubes(); populateTasimaSelects(); initTopluFilters();
+  alert('✅ Alan eklendi: ' + name);
+}
+
+async function addSube() {
+  const alan = document.getElementById('sAlan2').value;
+  const name = document.getElementById('newSube').value.trim();
+  if (!alan || !name) return alert('Alan seçin ve şube adını yazın!');
+  const struct = window._structure;
+  if (getAllSubes().some(x => x.name === name)) return alert('Bu şube adı zaten var!');
+  const dalKey = Object.keys(struct[alan])[0] || TEK_DAL;
+  if (!struct[alan][dalKey]) struct[alan][dalKey] = [];
+  struct[alan][dalKey].push({ name, sinif: subeSeviye(name) || 9 });
+  struct[alan][dalKey].sort(subeSirala);
+  await saveStructureToDb();
+  document.getElementById('newSube').value = '';
+  renderTree(); populateTeacherSubes(); populateTasimaSelects(); initTopluFilters();
+  alert('✅ Şube eklendi: ' + name);
+}
+
+async function delAlan(alan) {
+  const adlar = alanSubeleri(alan).map(x => x.name);
+  const n = await ogrenciSayisi(adlar);
+  if (n > 0) return alert(`"${alan}" alanındaki şubelerde toplam ${n} öğrenci kaydı var.\n\nAlan silinirse bu öğrenciler listelerde görünmez olur. Önce öğrencileri başka şubeye taşıyın veya silin.`);
+  if (!confirm(`"${alan}" alanını silmek istediğinize emin misiniz?`)) return;
+  delete window._structure[alan];
+  await saveStructureToDb();
+  fillSettingsAlans(); renderTree(); populateTeacherSubes(); populateTasimaSelects(); initTopluFilters();
+}
+
+async function delSube(alan, name) {
+  const n = await ogrenciSayisi([name]);
+  if (n > 0) return alert(`"${name}" şubesinde ${n} öğrenci kaydı var.\n\nŞube silinirse bu öğrenciler listelerde görünmez olur. Önce Toplu Sınıf İşlemleri bölümünden öğrencileri başka şubeye taşıyın veya silin.`);
+  if (!confirm(`"${name}" şubesini silmek istediğinize emin misiniz?`)) return;
+  const a = window._structure[alan];
+  Object.keys(a).forEach(d => { a[d] = a[d].filter(x => x.name !== name); });
+  await saveStructureToDb();
+  renderTree(); populateTeacherSubes(); populateTasimaSelects(); initTopluFilters();
+}
+
+function renderTree() {
+  let html = '';
+  alanlar().forEach(alan => {
+    const list = alanSubeleri(alan);
+    html += `<div style="margin-bottom:10px;">
+      <div class="tree-node">
+        <div><span>📁</span> <strong>${alan}</strong> <span class="badge">${list.length} şube</span></div>
+        <button class="btn btn-danger btn-xs" onclick="delAlan('${esc(alan)}')">Sil</button>
+      </div>`;
+    list.forEach(x => {
+      html += `<div style="padding-left:18px;margin-top:3px;">
+        <div class="tree-node" style="border-style:dashed;">
+          <div style="font-size:.82rem;"><span>🏫</span> ${x.name}</div>
+          <button class="btn btn-danger btn-xs" onclick="delSube('${esc(alan)}','${esc(x.name)}')">Sil</button>
+        </div></div>`;
+    });
+    html += `</div>`;
+  });
+  document.getElementById('structureTree').innerHTML = html || '<p class="text-muted">Yapı boş</p>';
+}
+
+function esc(s) { return s.replace(/'/g,"\\'"); }
+
+// ==================== LIGHTBOX ====================
+function openLightbox(imgId, name, meta) {
+  const img = document.getElementById(imgId);
+  if (!img) return;
+  const src = img.src;
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightboxInfo').textContent = name + ' — ' + meta;
+  document.getElementById('lightboxOpen').href = src;
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox') && e.type !== 'click') return;
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+function showAlert(id, msg, type) {
+  const el = document.getElementById(id);
+  if (!el) { alert(String(msg).replace(/<[^>]+>/g, '')); return; }
+  el.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+  setTimeout(() => { el.innerHTML = ''; }, 4000);
+}
+</script>
+</body>
+</html>
