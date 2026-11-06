@@ -143,8 +143,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .student-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
 .s-card{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow2);transition:all .2s;position:relative;}
 .s-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow);}
-.s-card-photo{width:100%;aspect-ratio:3/4;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:2.8rem;overflow:hidden;}
-.s-card-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.s-card-photo{width:100%;aspect-ratio:1;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:2.8rem;overflow:hidden;}
+.s-card-photo img{width:100%;height:100%;object-fit:cover;}
 .s-card-info{padding:9px 10px;}
 .s-card-name{font-weight:800;font-size:0.85rem;line-height:1.2;margin-bottom:3px;}
 .s-card-no{font-size:0.73rem;color:var(--text2);}
@@ -155,8 +155,6 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .ic-btn:hover{transform:scale(1.15);}
 .ic-edit{background:var(--primary);color:#fff;}
 .ic-del{background:var(--danger);color:#fff;}
-.ic-zoom{background:#0ea5e9;color:#fff;}
-@media (hover:none){.s-card-actions{opacity:1;}}
 
 /* SEATING */
 .seating-controls{background:var(--surface);border:2px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;}
@@ -169,9 +167,8 @@ body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);min-
 .desk-pair{display:flex;gap:5px;}
 .desk-slot{width:105px;background:var(--surface2);border:2px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;transition:border-color .2s;}
 .desk-slot:focus-within{border-color:var(--primary);}
-.slot-photo{width:100%;aspect-ratio:3/4;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;overflow:hidden;}
-.slot-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
-.slot-name{display:none;}
+.slot-photo{width:100%;aspect-ratio:1;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:1.6rem;overflow:hidden;}
+.slot-photo img{width:100%;height:100%;object-fit:cover;}
 .slot-select{width:100%;border:none;border-top:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:.7rem;padding:4px 6px;font-family:inherit;cursor:pointer;}
 .slot-select:focus{outline:none;}
 .aisle{width:20px;}
@@ -442,6 +439,19 @@ hr{border:none;border-top:2px solid var(--border);margin:18px 0;}
         <div id="structureTree"></div>
       </div>
 
+      <!-- KAYIP KAYIT KURTARMA VE YEDEK -->
+      <div class="settings-section" style="border-color:var(--secondary);">
+        <h3 style="color:var(--secondary);">🛟 Kayıp Kayıt Kurtarma ve Yedek</h3>
+        <div style="font-size:.85rem;color:var(--text2);margin-bottom:12px;line-height:1.5;">
+          Şubesi silinen veya adı değişen öğrenciler listelerde görünmez ama veritabanında durur. "Veritabanını Tara" bu kayıtları bulur, şubeyi yapıya geri ekleyerek öğrencileri yeniden görünür yapar.
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+          <button class="btn btn-secondary btn-sm" onclick="scanOrphans()">🔎 Veritabanını Tara</button>
+          <button class="btn btn-ghost btn-sm" onclick="downloadBackup()">💾 Yedek İndir (JSON)</button>
+        </div>
+        <div id="orphanResults"></div>
+      </div>
+
       <!-- TOPLU SINIF İŞLEMLERİ -->
       <div class="settings-section" style="border-color:var(--warning);border-width:2px;">
         <h3 style="color:var(--warning);">⚡ Toplu Sınıf İşlemleri</h3>
@@ -637,6 +647,7 @@ hr{border:none;border-top:2px solid var(--border);margin:18px 0;}
     <button onclick="closeLightbox()" style="position:absolute;top:-40px;right:0;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.4rem;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
     <img id="lightboxImg" src="" style="max-width:88vw;max-height:80vh;object-fit:contain;border-radius:12px;box-shadow:0 8px 48px rgba(0,0,0,0.6);">
     <div id="lightboxInfo" style="color:#fff;font-size:0.95rem;font-weight:700;text-align:center;text-shadow:0 1px 4px rgba(0,0,0,.8);"></div>
+    <a id="lightboxOpen" href="#" target="_blank" style="color:#93c5fd;font-size:0.82rem;text-decoration:underline;">🔗 Yeni sekmede aç / tam ekran</a>
   </div>
 </div>
 
@@ -649,11 +660,6 @@ hr{border:none;border-top:2px solid var(--border);margin:18px 0;}
     <div class="form-group"><label>Alan *</label><select id="eAlan" onchange="onEditAlan()"><option value="">-- Alan Seçin --</option></select></div>
     <div class="form-group"><label>Dal *</label><select id="eDal" onchange="onEditDal()" disabled><option value="">-- Önce Alan Seçin --</option></select></div>
     <div class="form-group"><label>Şube *</label><select id="eSube" disabled><option value="">-- Önce Dal Seçin --</option></select></div>
-    <div class="form-group"><label>Durum</label><select id="eDurum">
-      <option value="aktif">✅ Aktif Öğrenci</option>
-      <option value="mezun">🎓 Mezun Öğrenci</option>
-      <option value="diger">📋 Diğerleri</option>
-    </select></div>
     <div class="form-group">
       <label>Fotoğraf Değiştir <span style="color:var(--text3);font-weight:400;">(isteğe bağlı)</span></label>
       <div id="ePhotoPreview" style="margin-bottom:8px;"></div>
@@ -688,7 +694,7 @@ hr{border:none;border-top:2px solid var(--border);margin:18px 0;}
 <!-- Firebase SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
-import { initializeFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, deleteDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCKa9cNn0xL7j-TwcunUJ2LfFhqv43kUy4",
@@ -701,28 +707,13 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// Okul/proxy ağlarında WebChannel yazma onayı (ack) takılabiliyor -> long polling zorla
-const db = initializeFirestore(app, { experimentalForceLongPolling: true, useFetchStreams: false });
-
-// Yazma işlemi sunucu onayını beklerken takılırsa arayüz kilitlenmesin.
-// Firestore yazmayı zaten kuyruğa alır ve bağlantı düzelince gönderir.
-function withAck(promise, ms = 8000) {
-  return new Promise((resolve, reject) => {
-    let done = false;
-    const t = setTimeout(() => { if (!done) { done = true; console.warn('Firestore onayı gecikti, işlem kuyrukta.'); resolve({ pending: true }); } }, ms);
-    promise.then(
-      r => { if (!done) { done = true; clearTimeout(t); resolve(r); } },
-      e => { if (!done) { done = true; clearTimeout(t); reject(e); } else console.error('Gecikmeli yazma hatası:', e); }
-    );
-  });
-}
+const db = getFirestore(app);
 
 // Expose to global
 window._db = db;
 window._col = (name) => collection(db, name);
 window._addDoc = addDoc;
 window._getDocs = getDocs;
-window._getDoc = getDoc;
 window._doc = doc;
 window._updateDoc = updateDoc;
 window._deleteDoc = deleteDoc;
@@ -771,7 +762,7 @@ window.saveStructureToDb = async function() {
 };
 
 window.dbAddStudent = async function(student) {
-  return await withAck(_addDoc(_col('students'), student), 2500);
+  return await _addDoc(_col('students'), student);
 };
 
 window.dbGetStudents = async function(sube) {
@@ -780,17 +771,17 @@ window.dbGetStudents = async function(sube) {
   return snap.docs.map(d => ({id: d.id, ...d.data()}));
 };
 
-window.dbGetStudent = async function(id) {
-  const snap = await _getDoc(_doc(_db, 'students', id));
-  return snap.exists() ? { id: snap.id, ...snap.data() } : null;
+window.dbUpdateStudent = async function(id, data) {
+  await _updateDoc(_doc(_db, 'students', id), data);
 };
 
-window.dbUpdateStudent = async function(id, data) {
-  await withAck(_updateDoc(_doc(_db, 'students', id), data), 4000);
+window.dbGetAllStudents = async function() {
+  const snap = await _getDocs(_col('students'));
+  return snap.docs.map(d => ({id: d.id, ...d.data()}));
 };
 
 window.dbDeleteStudent = async function(id) {
-  await withAck(_deleteDoc(_doc(_db, 'students', id)), 4000);
+  await _deleteDoc(_doc(_db, 'students', id));
 };
 
 window.initStructure();
@@ -1014,12 +1005,11 @@ async function submitStudent() {
     const durum = document.getElementById('durumSel').value || 'aktif';
     await window.dbAddStudent({ alan, dal, sube, adSoyad, okulNo: okulNo || '999999', durum, photo: studentPhotoData || null, createdAt: new Date().toISOString() });
     showAlert('studentAlert', '✅ Bilgileriniz başarıyla kaydedildi!', 'success');
-    initStudentForm(); // formu hemen temizle (çift kayıt olmasın)
+    setTimeout(() => initStudentForm(), 2000);
   } catch(e) {
     showAlert('studentAlert', '❌ Kayıt hatası: ' + e.message, 'error');
-  } finally {
-    btn.disabled = false; btn.textContent = '✅ Kaydet';
   }
+  btn.disabled = false; btn.textContent = '✅ Kaydet';
 }
 
 // ==================== TEACHER ====================
@@ -1091,15 +1081,14 @@ function durumBadge(durum) {
 
 function sCard(s) {
   const no = s.okulNo === '999999' ? '-' : s.okulNo;
-  const zoomBtn = s.photo ? `<button class="ic-btn ic-zoom" onclick="openLightbox('${s.id}_ph','${s.adSoyad.replace(/'/g,'\\u0027')}','No: ${no} | ${s.sube}')" title="Büyüt">🔍</button>` : '';
+  const photoClick = s.photo ? `onclick="openLightbox('${s.id}_ph','${s.adSoyad.replace(/'/g,'&#39;')}','No: ${no} | ${s.sube}')" style="cursor:zoom-in;"` : '';
   const ph = s.photo ? `<img src="${s.photo}" id="${s.id}_ph">` : `<span style="font-size:2.8rem;">👤</span>`;
   return `<div class="s-card" id="sc-${s.id}">
     <div class="s-card-actions">
-      ${zoomBtn}
       <button class="ic-btn ic-edit" onclick="openEdit('${s.id}')" title="Düzenle">✏️</button>
       <button class="ic-btn ic-del" onclick="openDel('${s.id}')" title="Sil">🗑️</button>
     </div>
-    <div class="s-card-photo">${ph}</div>
+    <div class="s-card-photo" ${photoClick}>${ph}</div>
     <div class="s-card-info">
       <div class="s-card-name">${s.adSoyad}</div>
       <div class="s-card-no">No: ${no}</div>
@@ -1112,13 +1101,10 @@ function sCard(s) {
 // EDIT
 let _editStudents = [];
 async function openEdit(id) {
-  let s = _editStudents.find(x => x.id === id);
-  if (!s) {
-    // Önbellekte yoksa (başka şube / yeni kayıt / toplu liste) doğrudan kayıttan getir
-    try { s = await window.dbGetStudent(id); }
-    catch (e) { alert('Kayıt açılamadı: ' + e.message); return; }
-  }
-  if (!s) { alert('Kayıt bulunamadı. Listeyi yenileyip tekrar deneyin.'); return; }
+  const sube = document.getElementById('teacherSubeSel').value;
+  if (!_editStudents.length) _editStudents = await window.dbGetStudents(sube);
+  const s = _editStudents.find(x => x.id === id);
+  if (!s) return;
 
   // Basic fields
   document.getElementById('eAdSoyad').value = s.adSoyad;
@@ -1130,7 +1116,7 @@ async function openEdit(id) {
   // Show current photo preview
   const prev = document.getElementById('ePhotoPreview');
   if (s.photo) {
-    prev.innerHTML = `<img src="${s.photo}" style="width:60px;height:80px;object-fit:cover;object-position:center top;border-radius:8px;border:2px solid var(--border);">`;
+    prev.innerHTML = `<img src="${s.photo}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid var(--border);">`;
   } else {
     prev.innerHTML = `<span style="font-size:2rem;">👤</span>`;
   }
@@ -1213,7 +1199,7 @@ function onEditPhoto(input) {
       canvas.width=w; canvas.height=h;
       canvas.getContext('2d').drawImage(img,0,0,w,h);
       editPhotoData = canvas.toDataURL('image/jpeg',0.75);
-      document.getElementById('ePhotoPreview').innerHTML = `<img src="${editPhotoData}" style="width:60px;height:80px;object-fit:cover;object-position:center top;border-radius:8px;border:2px solid var(--secondary);"><div style="font-size:.72rem;color:var(--secondary);font-weight:700;margin-top:4px;">✅ Yeni fotoğraf seçildi</div>`;
+      document.getElementById('ePhotoPreview').innerHTML = `<img src="${editPhotoData}" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:2px solid var(--secondary);"><div style="font-size:.72rem;color:var(--secondary);font-weight:700;margin-top:4px;">✅ Yeni fotoğraf seçildi</div>`;
     };
     img.src = e.target.result;
   };
@@ -1248,26 +1234,24 @@ async function saveEdit() {
 function openDel(id) { document.getElementById('delId').value = id; document.getElementById('delModal').classList.remove('hidden'); }
 async function confirmDel() {
   const id = document.getElementById('delId').value;
-  // Önce arayüzden anında kaldır
-  closeModal('delModal');
-  ['sc-','sc2-'].forEach(pre => { const c = document.getElementById(pre + id); if (c) c.remove(); });
+  await window.dbDeleteStudent(id);
   _editStudents = [];
-  _searchCache = (_searchCache || []).filter(x => x.id !== id);
-  const grid = document.getElementById('classGrid');
-  if (grid && grid.querySelector('.student-grid') && !grid.querySelector('.s-card')) {
-    grid.innerHTML = '<div class="empty-state"><div class="ei">😔</div><div>Bu şubede aktif öğrenci yok</div></div>';
-  }
-  try {
-    await window.dbDeleteStudent(id);
-  } catch (e) {
-    alert('Silme hatası: ' + e.message);
-  }
-  // Aktif sekmeyi sunucudan tazele
+  closeModal('delModal');
+  // Hangi sekme aktifse onu yenile
   if (document.getElementById('tab-search').classList.contains('active')) {
     doSearch();
   } else if (document.getElementById('tab-toplu').classList.contains('active')) {
     doTopluList();
   } else {
+    // Kart DOM'dan anında kaldır, sonra Firebase'den tazele
+    const card = document.getElementById('sc-' + id);
+    if (card) card.remove();
+    // Kalan kart sayısını kontrol et, boşsa mesaj göster
+    const grid = document.getElementById('classGrid');
+    if (grid && grid.querySelector('.student-grid') && !grid.querySelector('.s-card')) {
+      grid.innerHTML = '<div class="empty-state"><div class="ei">😔</div><div>Bu şubede aktif öğrenci yok</div></div>';
+    }
+    // Arka planda Firebase'den gerçek listeyi de çek
     loadStudents();
   }
 }
@@ -1390,7 +1374,7 @@ async function loadSeciliOgrenciler() {
   listDiv.style.display='block';
   listDiv.innerHTML = students.map(s => {
     const no = s.okulNo==='999999'?'-':s.okulNo;
-    const ph = s.photo ? `<img src="${s.photo}" style="width:24px;height:32px;object-fit:cover;object-position:center top;border-radius:6px;flex-shrink:0;">` : `<span style="font-size:1.3rem;flex-shrink:0;">👤</span>`;
+    const ph = s.photo ? `<img src="${s.photo}" style="width:32px;height:32px;object-fit:cover;border-radius:6px;flex-shrink:0;">` : `<span style="font-size:1.3rem;flex-shrink:0;">👤</span>`;
     return `<label style="display:flex;align-items:center;gap:10px;padding:8px 12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''">
       <input type="checkbox" class="secili-cb" value="${s.id}" style="width:16px;height:16px;cursor:pointer;">
       ${ph}
@@ -1436,6 +1420,115 @@ async function doSeciliTasima() {
   loadStudents();
 }
 
+// ==================== KAYIP KAYIT KURTARMA & YEDEK ====================
+window._orphanGroups = [];
+
+function topKey(counts) {
+  let best = '', n = 0;
+  for (const k in counts) if (counts[k] > n) { best = k; n = counts[k]; }
+  return best;
+}
+
+async function scanOrphans() {
+  const box = document.getElementById('orphanResults');
+  box.innerHTML = '<div class="loading"><div class="spinner"></div> Veritabanı taranıyor...</div>';
+  try {
+    const all = await window.dbGetAllStudents();
+    const struct = window._structure || defaultStructure;
+    const known = new Set();
+    for (const a in struct) for (const d in struct[a]) for (const s of struct[a][d]) known.add(s.name);
+
+    const groups = {};
+    let visible = 0;
+    all.forEach(s => {
+      const key = s.sube || '(şube bilgisi yok)';
+      if (known.has(key)) { visible++; return; }
+      if (!groups[key]) groups[key] = { name: key, count: 0, alanC: {}, dalC: {} };
+      const g = groups[key];
+      g.count++;
+      if (s.alan) g.alanC[s.alan] = (g.alanC[s.alan] || 0) + 1;
+      if (s.dal) g.dalC[s.dal] = (g.dalC[s.dal] || 0) + 1;
+    });
+
+    const list = Object.values(groups).map(g => {
+      const m = g.name.match(/^\s*(\d{1,2})/);
+      let sinif = m ? parseInt(m[1]) : 9;
+      if (![9,10,11,12].includes(sinif)) sinif = 9;
+      return { name: g.name, count: g.count, sinif,
+               alan: topKey(g.alanC) || 'Kurtarılan Kayıtlar',
+               dal: topKey(g.dalC) || 'Kurtarılan Kayıtlar',
+               restorable: g.name !== '(şube bilgisi yok)' };
+    }).sort((a,b) => b.count - a.count);
+    window._orphanGroups = list;
+
+    const hidden = all.length - visible;
+    let html = `<div class="alert alert-info" style="margin-bottom:10px;">
+      Veritabanında toplam <b>${all.length}</b> kayıt var. Yapıdaki şubelerde görünen: <b>${visible}</b>. Görünmeyen: <b>${hidden}</b>.</div>`;
+
+    if (!list.length) {
+      html += '<div style="font-size:.85rem;color:var(--text2);">Görünmeyen kayıt yok. Eksik öğrenciler veritabanında da yoksa silinmişlerdir.</div>';
+    } else {
+      html += `<div style="margin-bottom:8px;"><button class="btn btn-primary btn-sm" onclick="restoreAllOrphans()">♻️ Hepsini Geri Ekle</button></div>`;
+      list.forEach((g, i) => {
+        html += `<div class="tree-node">
+          <div style="font-size:.85rem;"><b>${g.name}</b> <span class="badge">${g.count} öğrenci</span>
+            <div style="font-size:.72rem;color:var(--text2);">${g.sinif}. Sınıf · ${g.alan} › ${g.dal}</div></div>
+          ${g.restorable ? `<button class="btn btn-primary btn-xs" onclick="restoreOrphan(${i})">♻️ Geri Ekle</button>` : ''}
+        </div>`;
+      });
+    }
+    box.innerHTML = html;
+  } catch(e) {
+    box.innerHTML = `<div class="alert alert-error">Hata: ${e.message}</div>`;
+  }
+}
+
+function addSubeToStructure(g) {
+  const struct = window._structure || defaultStructure;
+  if (!struct[g.alan]) struct[g.alan] = {};
+  if (!struct[g.alan][g.dal]) struct[g.alan][g.dal] = [];
+  if (!struct[g.alan][g.dal].find(s => s.name === g.name)) {
+    struct[g.alan][g.dal].push({ sinif: g.sinif, name: g.name });
+  }
+}
+
+function refreshAfterStructureChange() {
+  fillSettingsAlans(); renderTree(); populateTeacherSubes();
+  populateTasimaSelects(); initTopluFilters();
+}
+
+async function restoreOrphan(i) {
+  const g = window._orphanGroups[i];
+  if (!g) return;
+  addSubeToStructure(g);
+  await saveStructureToDb();
+  refreshAfterStructureChange();
+  await scanOrphans();
+}
+
+async function restoreAllOrphans() {
+  const list = window._orphanGroups.filter(g => g.restorable);
+  if (!list.length) return;
+  if (!confirm(`${list.length} şube yapıya geri eklenecek. Devam?`)) return;
+  list.forEach(addSubeToStructure);
+  await saveStructureToDb();
+  refreshAfterStructureChange();
+  await scanOrphans();
+}
+
+async function downloadBackup() {
+  try {
+    const all = await window.dbGetAllStudents();
+    const data = { tarih: new Date().toISOString(), yapi: window._structure || defaultStructure, ogrenciler: all };
+    const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'mesem_yedek_' + new Date().toISOString().slice(0,10) + '.json';
+    a.click();
+    alert(`✅ ${all.length} öğrenci kaydı yedeklendi.`);
+  } catch(e) { alert('Yedek alınamadı: ' + e.message); }
+}
+
 // ==================== SEARCH ====================
 async function doSearch() {
   const term = document.getElementById('searchInput').value.trim();
@@ -1475,15 +1568,14 @@ async function doSearch() {
 
 function searchCard(s) {
   const no = s.okulNo === '999999' ? '-' : s.okulNo;
-  const zoomBtn = s.photo ? `<button class="ic-btn ic-zoom" onclick="openLightbox('${s.id}_sph','${s.adSoyad.replace(/'/g,'\\u0027')}','No: ${no} | ${s.sube}')" title="Büyüt">🔍</button>` : '';
+  const photoClick = s.photo ? `onclick="openLightbox('${s.id}_sph','${s.adSoyad.replace(/'/g,'&#39;')}','No: ${no} | ${s.sube}')" style="cursor:zoom-in;"` : '';
   const ph = s.photo ? `<img src="${s.photo}" id="${s.id}_sph">` : `<span style="font-size:2.8rem;">👤</span>`;
   return `<div class="s-card" id="sc-${s.id}">
     <div class="s-card-actions">
-      ${zoomBtn}
       <button class="ic-btn ic-edit" onclick="openEditFromSearch('${s.id}')" title="Düzenle">✏️</button>
       <button class="ic-btn ic-del" onclick="openDel('${s.id}')" title="Sil">🗑️</button>
     </div>
-    <div class="s-card-photo">${ph}</div>
+    <div class="s-card-photo" ${photoClick}>${ph}</div>
     <div class="s-card-info">
       <div class="s-card-name">${s.adSoyad}</div>
       <div class="s-card-no">No: ${no}</div>
@@ -1672,11 +1764,11 @@ function renderTopluResults(all) {
       </thead>
       <tbody>`;
     all.forEach((s, i) => {
-      const ph = s.photo ? `<img src="${s.photo}" style="width:30px;height:40px;object-fit:cover;object-position:center top;border-radius:6px;">` : `<span style="font-size:1.5rem;">👤</span>`;
+      const ph = s.photo ? `<img src="${s.photo}" style="width:40px;height:40px;object-fit:cover;border-radius:6px;">` : `<span style="font-size:1.5rem;">👤</span>`;
       const no = s.okulNo === '999999' ? '-' : s.okulNo;
       const bg = i % 2 === 0 ? 'var(--surface)' : 'var(--surface2)';
       html += `<tr style="background:${bg};border-bottom:1px solid var(--border);" id="tr-${s.id}">
-        <td style="padding:8px 12px;" onclick="if(document.getElementById('${s.id}_tp'))openLightbox('${s.id}_tp','${s.adSoyad.replace(/'/g,"&#39;")}','${s.sube}')" style="cursor:${s.photo?'zoom-in':'default'}">${s.photo ? `<img src="${s.photo}" id="${s.id}_tp" style="width:30px;height:40px;object-fit:cover;object-position:center top;border-radius:6px;cursor:zoom-in;">` : `<span style="font-size:1.5rem;">👤</span>`}</td>
+        <td style="padding:8px 12px;" onclick="if(document.getElementById('${s.id}_tp'))openLightbox('${s.id}_tp','${s.adSoyad.replace(/'/g,"&#39;")}','${s.sube}')" style="cursor:${s.photo?'zoom-in':'default'}">${s.photo ? `<img src="${s.photo}" id="${s.id}_tp" style="width:40px;height:40px;object-fit:cover;border-radius:6px;cursor:zoom-in;">` : `<span style="font-size:1.5rem;">👤</span>`}</td>
         <td style="padding:8px 12px;font-weight:700;">${s.adSoyad}</td>
         <td style="padding:8px 12px;color:var(--text2);">${no}</td>
         <td style="padding:8px 12px;color:var(--text2);">${s.sube}</td>
@@ -1692,15 +1784,14 @@ function renderTopluResults(all) {
 
 function topluCard(s) {
   const no = s.okulNo === '999999' ? '-' : s.okulNo;
-  const zoomBtn = s.photo ? `<button class="ic-btn ic-zoom" onclick="openLightbox('${s.id}_tp2','${s.adSoyad.replace(/'/g,'\\u0027')}','No:${no} | ${s.sube}')" title="Büyüt">🔍</button>` : '';
+  const photoClick = s.photo ? `onclick="openLightbox('${s.id}_tp2','${s.adSoyad.replace(/'/g,"&#39;")}','No:${no} | ${s.sube}')" style="cursor:zoom-in;"` : '';
   const ph = s.photo ? `<img src="${s.photo}" id="${s.id}_tp2">` : `<span style="font-size:2.8rem;">👤</span>`;
   return `<div class="s-card" id="sc2-${s.id}">
     <div class="s-card-actions">
-      ${zoomBtn}
       <button class="ic-btn ic-edit" onclick="openEditFromSearch('${s.id}')" title="Düzenle">✏️</button>
       <button class="ic-btn ic-del" onclick="openDel('${s.id}')" title="Sil">🗑️</button>
     </div>
-    <div class="s-card-photo">${ph}</div>
+    <div class="s-card-photo" ${photoClick}>${ph}</div>
     <div class="s-card-info">
       <div class="s-card-name">${s.adSoyad}</div>
       <div class="s-card-no">No: ${no}</div>
@@ -1728,7 +1819,7 @@ function exportTopluPDF() {
   <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;color:#1a56db;}
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px;}
   .card{border:2px solid #ccc;border-radius:10px;overflow:hidden;}
-  .card img,.noph{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+  .card img,.noph{width:100%;aspect-ratio:1;object-fit:cover;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2rem;}
   .info{padding:8px;}.name{font-weight:700;font-size:.85rem;}.meta{font-size:.75rem;color:#666;}</style></head>
   <body><h2>Toplu Öğrenci Listesi</h2>${body}<script>window.onload=()=>window.print()<\/script></body></html>`);
   w.document.close();
@@ -1751,7 +1842,7 @@ function exportTopluHTML() {
   <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;color:#1a56db;}
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:10px;}
   .card{border:2px solid #ccc;border-radius:10px;overflow:hidden;}
-  .card img,.noph{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+  .card img,.noph{width:100%;aspect-ratio:1;object-fit:cover;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2rem;}
   .info{padding:8px;}.name{font-weight:700;font-size:.85rem;}.meta{font-size:.75rem;color:#666;}</style></head>
   <body><h2>Toplu Öğrenci Listesi</h2>${body}</body></html>`], {type:'text/html'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'toplu_liste.html'; a.click();
@@ -1786,7 +1877,7 @@ function renderSeating() {
       html += `<div class="desk-pair">`;
       for (let p = 0; p < per; p++) {
         const sid = `s_${r}_${c}_${p}`;
-        html += `<div class="desk-slot"><div class="slot-photo" id="ph_${sid}"><span>👤</span></div><div class="slot-name" id="nm_${sid}"></div><select class="slot-select" id="${sid}" onchange="updateSlot('${sid}')">${opts}</select></div>`;
+        html += `<div class="desk-slot"><div class="slot-photo" id="ph_${sid}"><span>👤</span></div><select class="slot-select" id="${sid}" onchange="updateSlot('${sid}')">${opts}</select></div>`;
       }
       html += `</div>`;
       if (c < cols-1) html += `<div class="aisle"></div>`;
@@ -1806,21 +1897,9 @@ function updateSlot(sid) {
   else if (s) phDiv.innerHTML = `<div style="font-size:.65rem;font-weight:800;padding:4px;text-align:center;color:var(--text2)">${s.adSoyad.split(' ')[0]}</div>`;
 }
 
-function seatBoardExportHTML() {
-  const board = document.getElementById('seatingBoard');
-  const clone = board.cloneNode(true);
-  board.querySelectorAll('select.slot-select').forEach(sel => {
-    const nm = clone.querySelector('#nm_' + sel.id);
-    if (!nm) return;
-    const st = sel.value ? seatStudents.find(x => x.id === sel.value) : null;
-    nm.textContent = st ? st.adSoyad : '';
-  });
-  return clone.innerHTML;
-}
-
 function exportSeatPDF() {
   const sube = document.getElementById('seatSubeSel').value || 'Oturma Planı';
-  const bHTML = seatBoardExportHTML();
+  const bHTML = document.getElementById('seatingBoard').innerHTML;
   const w = window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${sube}</title>
   <style>body{font-family:sans-serif;padding:20px;}
@@ -1831,19 +1910,38 @@ function exportSeatPDF() {
   .row-num{font-size:.72rem;width:18px;text-align:center;padding-top:14px;color:#888;}
   .desk-pair{display:flex;gap:5px;}
   .desk-slot{width:105px;border:2px solid #ccc;border-radius:9px;overflow:hidden;}
-  .slot-photo{width:100%;aspect-ratio:3/4;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
-  .slot-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
-  .slot-select{display:none;}.slot-name{display:block;font-size:.62rem;font-weight:800;text-align:center;padding:3px 2px;min-height:2.4em;line-height:1.2;color:#111;word-break:break-word;}.aisle{width:20px;}
+  .slot-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+  .slot-photo img{width:100%;height:100%;object-fit:cover;}
+  .slot-select{display:none;}.aisle{width:20px;}
+  .slot-name{font-size:0.62rem;font-weight:700;text-align:center;padding:3px 4px;background:#f1f5f9;border-top:1px solid #ccc;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center;word-break:break-word;}
   h2{text-align:center;margin-bottom:20px;}</style></head><body>
   <h2>${sube} – Oturma Planı</h2>
   <div class="seating-board">${bHTML}</div>
-  <script>window.onload=()=>window.print()<\/script></body></html>`);
+  <script>
+    // Slot'lardaki select değerlerinden isim yaz
+    document.querySelectorAll('.desk-slot').forEach(slot => {
+      const sel = slot.querySelector('select');
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'slot-name';
+      if (sel && sel.value) {
+        const opt = sel.options[sel.selectedIndex];
+        // Sadece adı al (parantez içindeki numara olmadan)
+        const fullText = opt ? opt.textContent : '';
+        const name = fullText.replace(/\s*\(.*\)/, '').trim();
+        nameDiv.textContent = name;
+      } else {
+        nameDiv.textContent = '';
+      }
+      slot.appendChild(nameDiv);
+    });
+    window.onload=()=>window.print();
+  <\/script></body></html>`);
   w.document.close();
 }
 
 function exportSeatHTML() {
   const sube = document.getElementById('seatSubeSel').value || 'Oturma Planı';
-  const bHTML = seatBoardExportHTML();
+  const bHTML = document.getElementById('seatingBoard').innerHTML;
   const blob = new Blob([`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${sube}</title>
   <style>body{font-family:sans-serif;padding:20px;}
   .seating-board{display:flex;flex-direction:column;gap:10px;align-items:center;}
@@ -1851,9 +1949,25 @@ function exportSeatHTML() {
   .teacher-desk{background:#1340b0;color:#fff;padding:9px 36px;border-radius:9px;font-weight:800;}
   .seat-row{display:flex;gap:10px;}.row-num{font-size:.72rem;width:18px;text-align:center;padding-top:14px;color:#888;}
   .desk-pair{display:flex;gap:5px;}.desk-slot{width:105px;border:2px solid #ccc;border-radius:9px;overflow:hidden;}
-  .slot-photo{width:100%;aspect-ratio:3/4;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
-  .slot-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}.slot-select{display:none;}.slot-name{display:block;font-size:.62rem;font-weight:800;text-align:center;padding:3px 2px;min-height:2.4em;line-height:1.2;color:#111;word-break:break-word;}.aisle{width:20px;}</style></head>
-  <body><h2 style="text-align:center">${sube} – Oturma Planı</h2><div class="seating-board">${bHTML}</div></body></html>`], {type:'text/html'});
+  .slot-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:1.6rem;}
+  .slot-photo img{width:100%;height:100%;object-fit:cover;}.slot-select{display:none;}.aisle{width:20px;}
+  .slot-name{font-size:0.62rem;font-weight:700;text-align:center;padding:3px 4px;background:#f1f5f9;border-top:1px solid #ccc;line-height:1.2;min-height:28px;display:flex;align-items:center;justify-content:center;word-break:break-word;}
+  </style></head>
+  <body><h2 style="text-align:center">${sube} – Oturma Planı</h2><div class="seating-board">${bHTML}</div>
+  <script>
+    document.querySelectorAll('.desk-slot').forEach(slot => {
+      const sel = slot.querySelector('select');
+      const nameDiv = document.createElement('div');
+      nameDiv.className = 'slot-name';
+      if (sel && sel.value) {
+        const opt = sel.options[sel.selectedIndex];
+        const name = opt ? opt.textContent.replace(/\s*\(.*\)/,'').trim() : '';
+        nameDiv.textContent = name;
+      } else { nameDiv.textContent = ''; }
+      slot.appendChild(nameDiv);
+    });
+  <\/script>
+  </body></html>`], {type:'text/html'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${sube}_oturma_plani.html`; a.click();
 }
 
@@ -1865,8 +1979,8 @@ function exportPDF() {
   <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;margin-bottom:20px;}
   .student-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
   .s-card{border:2px solid #ccc;border-radius:12px;overflow:hidden;break-inside:avoid;}
-  .s-card-photo{width:100%;aspect-ratio:3/4;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
-  .s-card-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+  .s-card-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+  .s-card-photo img{width:100%;height:100%;object-fit:cover;}
   .s-card-info{padding:8px;}.s-card-name{font-weight:800;font-size:.85rem;}
   .s-card-no,.s-card-sube{font-size:.72rem;color:#666;}.s-card-actions{display:none!important;}</style></head>
   <body><h2>${sube} – Fotoğraflı Sınıf Listesi</h2>${g}<script>window.onload=()=>window.print()<\/script></body></html>`);
@@ -1880,8 +1994,8 @@ function exportHTMLList() {
   <style>body{font-family:sans-serif;padding:20px;}h2{text-align:center;}
   .student-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
   .s-card{border:2px solid #ccc;border-radius:12px;overflow:hidden;}
-  .s-card-photo{width:100%;aspect-ratio:3/4;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
-  .s-card-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+  .s-card-photo{width:100%;aspect-ratio:1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+  .s-card-photo img{width:100%;height:100%;object-fit:cover;}
   .s-card-info{padding:8px;}.s-card-name{font-weight:800;font-size:.85rem;}
   .s-card-no,.s-card-sube{font-size:.72rem;color:#666;}.s-card-actions{display:none!important;}</style></head>
   <body><h2>${sube} – Fotoğraflı Sınıf Listesi</h2>${g}</body></html>`], {type:'text/html'});
@@ -2007,6 +2121,7 @@ function openLightbox(imgId, name, meta) {
   const src = img.src;
   document.getElementById('lightboxImg').src = src;
   document.getElementById('lightboxInfo').textContent = name + ' — ' + meta;
+  document.getElementById('lightboxOpen').href = src;
   document.getElementById('lightbox').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
